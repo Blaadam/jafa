@@ -26,6 +26,11 @@ function printHelp(): void {
     })
     .join("\n");
 
+  const examples = commands
+    .filter((c) => c.usage)
+    .map((c) => `  jafa ${c.usage}`)
+    .join("\n");
+
   console.log(`
 ${CLI_NAME} - A CLI tool for Roblox repository management
 
@@ -42,8 +47,7 @@ Options:
   -v, --version       Show version
 
 Examples:
-  jafa init
-  jafa hello Adam
+${examples}
   jafa --help
   jafa --version
 `.trim());

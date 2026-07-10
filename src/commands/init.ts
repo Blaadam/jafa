@@ -13,6 +13,7 @@ const __dirname = dirname(__filename);
 export const initCommand: CommandDefinition = {
   name: "init",
   description: "Create a new jafa project in the given directory (defaults to the current directory)",
+  usage: "init [target-directory]",
   run(args) {
     const unknownFlags = args.filter((arg) => arg.startsWith("-"));
     if (unknownFlags.length > 0) {
