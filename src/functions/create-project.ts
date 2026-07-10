@@ -3,6 +3,7 @@ import { readdirSync } from "node:fs";
 import shell from "shelljs";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import { ReadJsonFile } from "../helpers/read-json.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -43,7 +44,28 @@ export function CreateProject(
 	shell.mkdir("-p", dirname(projectDest));
 	shell.cp("-R", resolve(scaffoldingRoot, "project"), projectDest);
 
-	//shell.cp("-R", resolve(__dirname, "../../scaffolding/project"), ".");
+	// Create sub-folders
+	console.log(`Creating sub-folders for ${projectName}...`);
+	const jsonStruct = ReadJsonFile(resolve(projectDest, "struct.json"));
+
+	const createFolders = (basePath: string, struct: unknown): void => {
+		if (!struct || typeof struct !== "object" || Array.isArray(struct)) {
+			return;
+		}
+
+		for (const [folderName, nestedStruct] of Object.entries(
+			struct as Record<string, unknown>,
+		)) {
+			const folderPath = resolve(basePath, folderName);
+			shell.mkdir("-p", folderPath);
+			createFolders(folderPath, nestedStruct);
+		}
+	};
+
+	createFolders(projectDest, jsonStruct);
+
+	shell.rm(resolve(projectDest, "struct.json"));
+
 	console.log(`Your jafa project has been initialized in ${cwd}.`);
 
 	return projectDest;

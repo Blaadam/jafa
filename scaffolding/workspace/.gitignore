@@ -1,0 +1,7 @@
+*.env
+*.rbxl
+*.rbxl.lock
+*.rbxlx
+*.rbxlx.lock
+secrets.luau
+sourcemap.json

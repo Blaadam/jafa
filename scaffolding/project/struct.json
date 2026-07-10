@@ -1,27 +1,25 @@
 {
-    "paths": {
-        "client": {
-            "database": {},
-            "modules": {},
-            "services": {},
-            "controllers": {}
-        },
-        "shared": {
-            "database": {},
-            "modules": {},
-            "facilitators": {}
-        },
-        "server": {
-            "database": {},
-            "modules": {},
-            "services": {}
-        },
-        "ui": {
-            "components": {},
-            "windows": {},
-            "stories": {}
-        },
-        "preload": {},
-        "character": {}
-    }
+    "client": {
+        "database": {},
+        "modules": {},
+        "services": {},
+        "controllers": {}
+    },
+    "shared": {
+        "database": {},
+        "modules": {},
+        "facilitators": {}
+    },
+    "server": {
+        "database": {},
+        "modules": {},
+        "services": {}
+    },
+    "ui": {
+        "components": {},
+        "windows": {},
+        "stories": {}
+    },
+    "preload": {},
+    "character": {}
 }
