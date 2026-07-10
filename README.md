@@ -56,8 +56,8 @@ modules, databases, components, etc.) and a Rojo project tree wired up to
 
 - [x] `init` — create a Jafa workspace
 - [x] `new` — create a new project (resource)
-- [ ] `build` — compile a project
-- [ ] `open` — open a project
+- [x] `build` — compile a project
+- [x] `open` — open a project
 - [ ] `serve` — serve a project
 - [ ] `dev` — build, open, and serve a project (in order)
 
