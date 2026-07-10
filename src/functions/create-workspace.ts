@@ -36,9 +36,12 @@ export function CreateWorkspace(target: string): string {
     log.info("Installing dependencies...");
     shell.exec("rokit install");
 
+    log.verbose("Installing wally packages")
+    shell.exec("wally install --project-path ./wally");
+
+    log.verbose("Creating project...");
     CreateProject("project-name", cwd, false);
 
-    // Creating sub-folders
-
+    log.info("Workspace created successfully.");
     return cwd;
 }
