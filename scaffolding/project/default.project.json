@@ -17,6 +17,9 @@
         },
         "Databases": {
           "$path": "./shared/databases"
+        },
+        "Packages": {
+          "$path": "../../wally/Packages"
         }
       },
       "Client": {

@@ -5,3 +5,4 @@
 *.rbxlx.lock
 secrets.luau
 sourcemap.json
+wally/Packages/*
