@@ -58,8 +58,8 @@ modules, databases, components, etc.) and a Rojo project tree wired up to
 - [x] `new` — create a new project (resource)
 - [x] `build` — compile a project
 - [x] `open` — open a project
-- [ ] `serve` — serve a project
-- [ ] `dev` — build, open, and serve a project (in order)
+- [x] `serve` — serve a project
+- [x] `dev` — build, open, and serve a project (in order)
 
 ## Development
 
