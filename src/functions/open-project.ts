@@ -1,11 +1,7 @@
 import { resolve, dirname } from "node:path";
-import { readdirSync } from "node:fs";
 import shell from "shelljs";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
-import { ReadJsonFile } from "../helpers/read-json.js";
-import exec from "../utilities/exec.js";
-import escape from "../utilities/escape.js";
 import { execSync } from "node:child_process";
 import os from "node:os";
 

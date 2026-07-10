@@ -1,5 +1,4 @@
 import { resolve, dirname } from "node:path";
-import { readdirSync } from "node:fs";
 import shell from "shelljs";
 import process from "node:process";
 import { fileURLToPath } from "node:url";

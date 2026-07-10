@@ -1,10 +1,7 @@
 import { resolve, dirname } from "node:path";
-import { readdirSync } from "node:fs";
 import type { CommandDefinition } from "./types.js";
-import shell from "shelljs";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
-import { CreateProject } from "../functions/create-project.js";
 import { CreateWorkspace } from "../functions/create-workspace.js";
 
 const __filename = fileURLToPath(import.meta.url);
