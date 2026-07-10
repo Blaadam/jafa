@@ -1,5 +1,5 @@
 {
-  "name": "jafa/new-project",
+  "name": "project-name",
   "globIgnorePaths": ["**/*.spec.lua"],
   "tree": {
     "$className": "DataModel",
