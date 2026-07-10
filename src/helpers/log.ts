@@ -1,0 +1,33 @@
+import chalk from "chalk";
+
+export const levels = {
+  verbose: 0,
+  trace: 1,
+  info: 2,
+  warn: 3,
+  error: 4,
+} as const;
+
+const level: number = levels.verbose;
+
+const makePrefix = (slot: string): string =>
+  `${chalk.bold.cyan("jafa ")}${chalk.gray("[")}${slot}${chalk.gray("]")}`;
+
+function write(threshold: number, label: string, message: unknown): void {
+  if (level <= threshold) console.log(makePrefix(label), message);
+}
+
+export const verbose = (message: unknown): void =>
+  write(levels.verbose, chalk.magenta("verbose"), message);
+
+export const trace = (message: unknown): void =>
+  write(levels.trace, chalk.blue("trace"), message);
+
+export const info = (message: unknown): void =>
+  write(levels.info, chalk.greenBright("info"), message);
+
+export const warn = (message: unknown): void =>
+  write(levels.warn, chalk.yellow("WARN"), message);
+
+export const error = (message: unknown): void =>
+  write(levels.error, chalk.red("ERR!"), message);
