@@ -3,6 +3,7 @@ import shell from "shelljs";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { ReadJsonFile } from "../helpers/read-json.js";
+import { log } from "../helpers/log.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -15,7 +16,7 @@ export function CreateProject(
 	const cwd = resolve(process.cwd(), target);
 
 	shell.cd(cwd);
-	console.log(`Initializing jafa in ${cwd}`);
+	log.info(`Initializing jafa in ${cwd}`);
 
 	// Copy the scaffolding files to the target directory
 	const scaffoldingRoot = resolve(__dirname, "../../scaffolding");
@@ -44,7 +45,7 @@ export function CreateProject(
 	shell.cp("-R", resolve(scaffoldingRoot, "project"), projectDest);
 
 	// Create sub-folders
-	console.log(`Creating sub-folders for ${projectName}...`);
+	log.info(`Creating sub-folders for ${projectName}...`);
 	const jsonStruct = ReadJsonFile(resolve(projectDest, "struct.json"));
 
 	const createFolders = (basePath: string, struct: unknown): void => {
@@ -56,6 +57,7 @@ export function CreateProject(
 			struct as Record<string, unknown>,
 		)) {
 			const folderPath = resolve(basePath, folderName);
+			log.verbose(`Creating folder: ${folderPath}`);
 			shell.mkdir("-p", folderPath);
 			createFolders(folderPath, nestedStruct);
 		}
@@ -65,7 +67,7 @@ export function CreateProject(
 
 	shell.rm(resolve(projectDest, "struct.json"));
 
-	console.log(`Your jafa project has been initialized in ${cwd}.`);
+	log.info(`Your jafa project has been initialized in ${cwd}.`);
 
 	return projectDest;
 }

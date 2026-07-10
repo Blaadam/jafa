@@ -3,6 +3,7 @@ import type { CommandDefinition } from "./types.js";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { CreateWorkspace } from "../functions/create-workspace.js";
+import { log } from "../helpers/log.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -14,7 +15,7 @@ export const initCommand: CommandDefinition = {
   run(args) {
     const unknownFlags = args.filter((arg) => arg.startsWith("-"));
     if (unknownFlags.length > 0) {
-      throw new Error(`Unknown option(s) for "init": ${unknownFlags.join(", ")}`);
+      throw new Error(`Unknown flags: ${unknownFlags.join(", ")}`);
     }
 
     // Sets the specified target directory or defaults to the current working directory
@@ -22,6 +23,7 @@ export const initCommand: CommandDefinition = {
     const cwd = resolve(process.cwd(), target);
 
     const workspace = CreateWorkspace(cwd);
-    console.log(`Initialized jafa workspace in ${workspace}`);
+    
+    log.info(`Initialized jafa workspace in ${workspace}`);
   },
 };

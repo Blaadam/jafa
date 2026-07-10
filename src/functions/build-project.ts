@@ -4,6 +4,7 @@ import process from "node:process";
 import { fileURLToPath } from "node:url";
 import exec from "../utilities/exec.js";
 import escape from "../utilities/escape.js";
+import { log } from "../helpers/log.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -28,10 +29,11 @@ export async function BuildProject(
     shell.cd(projectDest);
 
     // Create the build directory if it doesn't exist
+    log.verbose(`Ensuring build directory exists for ${projectName}...`);
     const buildDir = resolve(cwd, "artifacts", projectName);
     shell.mkdir("-p", buildDir);
 
-    console.log(`Building project "${projectName}"...`);
+    log.info(`Building project "${projectName}"...`);
     const buildOutput = await execute(resolve(projectDest, "default.project.json"), resolve(buildDir, "build.rbxl"));
     
     if (buildOutput) {

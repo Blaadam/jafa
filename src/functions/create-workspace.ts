@@ -4,6 +4,7 @@ import shell from "shelljs";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { CreateProject } from "./create-project.js";
+import { log } from "../helpers/log.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -12,7 +13,7 @@ export function CreateWorkspace(target: string): string {
     const cwd = resolve(process.cwd(), target);
 
     shell.cd(cwd);
-    console.log(`Initializing jafa in ${cwd}`);
+    log.info(`Initializing jafa in ${cwd}`);
 
     // Copy the scaffolding files to the target directory
     const scaffoldingRoot = resolve(__dirname, "../../scaffolding");
@@ -25,14 +26,14 @@ export function CreateWorkspace(target: string): string {
 
     // Setup git
     if (shell.test("-d", ".git")) {
-        console.log("Git repository already exists, skipping.");
+        log.verbose("Git repository already exists, skipping.");
     } else {
-        console.log("Initializing git repository...");
+        log.verbose("Initializing git repository...");
         shell.exec("git init");
     }
 
     // Install dependencies
-    console.log("Installing dependencies...");
+    log.info("Installing dependencies...");
     shell.exec("rokit install");
 
     CreateProject("project-name", cwd, false);

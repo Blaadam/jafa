@@ -17,17 +17,25 @@ function write(threshold: number, label: string, message: unknown): void {
   if (level <= threshold) console.log(makePrefix(label), message);
 }
 
-export const verbose = (message: unknown): void =>
+const verbose = (message: unknown): void =>
   write(levels.verbose, chalk.magenta("verbose"), message);
 
-export const trace = (message: unknown): void =>
+const trace = (message: unknown): void =>
   write(levels.trace, chalk.blue("trace"), message);
 
-export const info = (message: unknown): void =>
+const info = (message: unknown): void =>
   write(levels.info, chalk.greenBright("info"), message);
 
-export const warn = (message: unknown): void =>
+const warn = (message: unknown): void =>
   write(levels.warn, chalk.yellow("WARN"), message);
 
-export const error = (message: unknown): void =>
+const error = (message: unknown): void =>
   write(levels.error, chalk.red("ERR!"), message);
+
+export const log = {
+  verbose,
+  trace,
+  info,
+  warn,
+  error,
+};
