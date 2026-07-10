@@ -1,11 +1,6 @@
-import { dirname } from "node:path";
 import type { CommandDefinition } from "./types.js";
-import { fileURLToPath } from "node:url";
 import { CreateProject } from "../functions/create-project.js";
 import { log } from "../helpers/log.js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 export const newCommand: CommandDefinition = {
   name: "new",

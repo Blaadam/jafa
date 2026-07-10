@@ -1,10 +1,5 @@
-import { dirname } from "node:path";
 import type { CommandDefinition } from "./types.js";
-import { fileURLToPath } from "node:url";
 import { OpenProject } from "../functions/open-project.js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 export const openCommand: CommandDefinition = {
   name: "open",

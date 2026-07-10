@@ -8,7 +8,7 @@ export const levels = {
   error: 4,
 } as const;
 
-const level: number = levels.verbose;
+const level: number = levels.info;
 
 const makePrefix = (slot: string): string =>
   `${chalk.bold.cyan("jafa ")}${chalk.gray("[")}${slot}${chalk.gray("]")}`;

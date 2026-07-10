@@ -1,12 +1,8 @@
-import { resolve, dirname } from "node:path";
+import { resolve } from "node:path";
 import type { CommandDefinition } from "./types.js";
 import process from "node:process";
-import { fileURLToPath } from "node:url";
 import { CreateWorkspace } from "../functions/create-workspace.js";
 import { log } from "../helpers/log.js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 export const initCommand: CommandDefinition = {
   name: "init",

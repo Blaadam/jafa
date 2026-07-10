@@ -1,13 +1,9 @@
-import { resolve, dirname } from "node:path";
+import { resolve } from "node:path";
 import shell from "shelljs";
 import process from "node:process";
-import { fileURLToPath } from "node:url";
 import exec from "../utilities/exec.js";
 import escape from "../utilities/escape.js";
 import { log } from "../helpers/log.js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const execute = (projectPath: string, buildPath: string): Promise<string> => exec(`rojo build -o ${escape(buildPath)} ${escape(projectPath)}`);
 
