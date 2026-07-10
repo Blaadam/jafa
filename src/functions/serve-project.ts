@@ -30,6 +30,7 @@ export async function ServeProject(
     shell.mkdir("-p", buildDir);
 
     log.info(`Serving project "${projectName}"...`);
+    log.verbose(`Executing "rojo serve" in "${projectDest}"...`);
     const buildOutput = await execute(resolve(projectDest, "default.project.json"));
     
     if (buildOutput) {
