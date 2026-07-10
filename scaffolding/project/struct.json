@@ -1,17 +1,17 @@
 {
     "client": {
-        "database": {},
+        "databases": {},
         "modules": {},
         "services": {},
         "controllers": {}
     },
     "shared": {
-        "database": {},
+        "databases": {},
         "modules": {},
         "facilitators": {}
     },
     "server": {
-        "database": {},
+        "databases": {},
         "modules": {},
         "services": {}
     },

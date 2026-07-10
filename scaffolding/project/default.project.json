@@ -1,9 +1,12 @@
 {
   "name": "project-name",
-  "globIgnorePaths": ["**/*.spec.lua"],
+  "globIgnorePaths": [
+    "**/*.spec.lua"
+  ],
   "tree": {
     "$className": "DataModel",
     "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
       "Shared": {
         "$className": "Folder",
         "Facilitators": {
@@ -26,50 +29,47 @@
         },
         "Modules": {
           "$path": "./client/modules"
+        },
+        "ClientMain": {
+          "$path": "./client/ClientMain.client.luau"
         }
       },
       "UI": {
         "$path": "./ui"
-      },
-      "Wally": {
-        "$path": "../wally/Packages"
       },
       "LogConfig": {
         "$path": "./shared/LogConfig.luau"
       }
     },
     "ServerScriptService": {
+      "$className": "ServerScriptService",
       "Services": {
         "$path": "./server/services"
       },
       "Modules": {
         "$path": "./server/modules"
       },
-      "ServerBootstrap": {
-        "$path": "./server/ServerBootstrap.server.luau"
-      },
-      "ServerPackages": {
-        "$path": "../wally/ServerPackages"
-      },
-      "CmdrAssets": {
-        "$path": "./server/cmdrAssets"
+      "ServerMain": {
+        "$path": "./server/ServerMain.server.luau"
       }
     },
     "Workspace": {
+      "$className": "Workspace",
       "$properties": {
         "FilteringEnabled": true,
         "StreamingEnabled": true,
         "ModelStreamingBehavior": "Improved",
         "StreamOutBehavior": "Opportunistic"
       },
-      "Terrain": {
-        "$path": ".bin/Terrain.rbxm"
-      },
-      "Map": {
-        "$path": ".bin/Map.rbxm"
-      },
-      "Scriptable": {
-        "$path": ".bin/Scriptable.rbxm"
+      "Baseplate": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": false,
+          "Material": "Concrete",
+          "Size": [2048, 1, 2048],
+          "Position": [0, 0.5, 0]
+        }
       }
     }
   }
