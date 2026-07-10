@@ -1,12 +1,21 @@
 {
-  "name": "jafa",
-  "version": "1.0.0",
+  "name": "@blaadam/jafa",
+  "version": "0.1.0-rc.1",
   "description": "A CLI tool for Roblox repository management",
   "license": "ISC",
   "author": "",
-  "type": "commonjs",
-  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "jafa": "dist/cli.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc -p tsconfig.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "typescript": "^7.0.2"
   }
 }
