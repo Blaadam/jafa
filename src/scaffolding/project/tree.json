@@ -1,0 +1,76 @@
+{
+  "name": "jafa/new-project",
+  "globIgnorePaths": ["**/*.spec.lua"],
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "Shared": {
+        "$className": "Folder",
+        "Facilitators": {
+          "$path": "./shared/facilitators"
+        },
+        "Modules": {
+          "$path": "./shared/modules"
+        },
+        "Databases": {
+          "$path": "./shared/databases"
+        }
+      },
+      "Client": {
+        "$className": "Folder",
+        "Services": {
+          "$path": "./client/services"
+        },
+        "Controllers": {
+          "$path": "./client/controllers"
+        },
+        "Modules": {
+          "$path": "./client/modules"
+        }
+      },
+      "UI": {
+        "$path": "./ui"
+      },
+      "Wally": {
+        "$path": "../wally/Packages"
+      },
+      "LogConfig": {
+        "$path": "./shared/LogConfig.luau"
+      }
+    },
+    "ServerScriptService": {
+      "Services": {
+        "$path": "./server/services"
+      },
+      "Modules": {
+        "$path": "./server/modules"
+      },
+      "ServerBootstrap": {
+        "$path": "./server/ServerBootstrap.server.luau"
+      },
+      "ServerPackages": {
+        "$path": "../wally/ServerPackages"
+      },
+      "CmdrAssets": {
+        "$path": "./server/cmdrAssets"
+      }
+    },
+    "Workspace": {
+      "$properties": {
+        "FilteringEnabled": true,
+        "StreamingEnabled": true,
+        "ModelStreamingBehavior": "Improved",
+        "StreamOutBehavior": "Opportunistic"
+      },
+      "Terrain": {
+        "$path": ".bin/Terrain.rbxm"
+      },
+      "Map": {
+        "$path": ".bin/Map.rbxm"
+      },
+      "Scriptable": {
+        "$path": ".bin/Scriptable.rbxm"
+      }
+    }
+  }
+}
