@@ -22,7 +22,7 @@ export async function BuildProject(
     const projectDest = resolve(projectsDir, projectName);
 
     if (!shell.test("-d", projectDest)) {
-        throw new Error(`"${projectName}" doesn't exist in "${projectsDir}". Make sure the project exists.`);
+        log.error(`"${projectName}" doesn't exist in "${projectsDir}". Make sure the project exists.`);
         return "";
     }
 
@@ -37,7 +37,7 @@ export async function BuildProject(
     const buildOutput = await execute(resolve(projectDest, "default.project.json"), resolve(buildDir, "build.rbxl"));
     
     if (buildOutput) {
-        console.log(`Build output:\n${buildOutput}`);
+        log.info(`Build output: ${buildOutput}`);
     }
 
     return projectDest;

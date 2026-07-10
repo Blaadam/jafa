@@ -28,16 +28,14 @@ export function CreateProject(
 	if (checkExists) {
 		// Check if being used in a jafa workspace
 		if (!shell.test("-d", projectsDir)) {
-			throw new Error(
-				`"${projectsDir}" doesn't exist. Make sure "${cwd}" is a jafa workspace.`,
-			);
-			return "";
+			log.error(`"${projectsDir}" doesn't exist. Make sure "${cwd}" is a jafa workspace.`);
+			throw new Error(`"${projectsDir}" doesn't exist. Make sure "${cwd}" is a jafa workspace.`);
 		}
 
 		// Check if the project exists encase of overwrite
 		if (shell.test("-e", projectDest)) {
+			log.error(`"${projectDest}" already exists`);
 			throw new Error(`"${projectDest}" already exists`);
-			return "";
 		}
 	}
 

@@ -26,8 +26,11 @@ function start(buildPath: string): void {
 			execSync(`xdg-open "${buildPath}"`);
 			break;
 		default:
-			throw new Error(
+			log.error(
 				`Your operating system (${os.type()}) is not supported by this command.`,
+			);
+			throw new Error(
+				`Your operating system not supported.`,
 			);
 	}
 }
@@ -43,19 +46,23 @@ export async function OpenProject(
 
 	log.verbose(`Checking if build directory exists for ${projectName}...`);
 	if (!shell.test("-d", buildDir)) {
+		log.error(
+			`"${projectName}" doesn't exist in "${artifactsDir}". Make sure the project exists.`,
+		);
 		throw new Error(
 			`"${projectName}" doesn't exist in "${artifactsDir}". Make sure the project exists.`,
 		);
-		return "";
 	}
 
 	// check if file exists
 	const buildFile = resolve(buildDir, "build.rbxl");
 	if (!shell.test("-f", buildFile)) {
+		log.error(
+			`Build file "${buildFile}" does not exist. Make sure the build was successful.`,
+		);
 		throw new Error(
 			`Build file "${buildFile}" does not exist. Make sure the build was successful.`,
 		);
-		return "";
 	}
 
 	log.verbose(`Opening build file: ${buildFile}`);
