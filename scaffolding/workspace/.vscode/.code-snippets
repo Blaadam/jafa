@@ -1,0 +1,22 @@
+{
+  "Create Service": {
+    "scope": "luau,lua",
+    "prefix": "create-service",
+    "isFileTemplate": true,
+    "body": [
+      "local ReplicatedStorage = game:GetService(\"ReplicatedStorage\")",
+
+      "local Net = require(ReplicatedStorage.Wally.Net)\n",
+
+      "local Logger = require(ReplicatedStorage.Packages.Logger)",
+      "local Log = Logger.new()\n",
+
+      "local $1Service = {}\n",
+
+      "function $1Service.OnStart()\n",
+      "end\n",
+
+      "return $1Service"
+    ]
+  },
+}
