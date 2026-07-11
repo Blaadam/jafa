@@ -1,9 +1,16 @@
-# Jafa
+<p align="center">
+  <img src="website/static/img/jafa_logo.svg" width="150" alt="Jafa logo" />
+</p>
 
-Jafa is a CLI tool for managing Roblox mono-repos. It scaffolds a shared
-workspace (Rojo, Wally, Rokit, Selene, StyLua) and lets you spin up new
-projects inside it with a consistent folder structure, so multiple
-Roblox experiences can live side by side in one repository.
+<h1 align="center">Jafa</h1>
+
+<p align="center">
+  A CLI tool making Roblox repositories – simpler
+</p>
+
+---
+
+Jafa is a CLI tool for managing Roblox monorepos. It scaffolds a shared workspace integrating popular tools (Rojo, Wally, Rokit, Selene, StyLua) and lets you spin up new projects inside it with a consistent folder structure, so multiple Roblox experiences can live side by side in one repository - or share resources!
 
 ## Installation
 

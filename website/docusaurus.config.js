@@ -12,7 +12,8 @@ import { themes as prismThemes } from "prism-react-renderer";
 const config = {
 	title: "Jafa",
 	tagline: "A CLI tool making Roblox repositories – simpler",
-	favicon: "img/favicon.ico",
+	// favicon: "img/favicon.ico",
+	favicon: "img/jafa_logo.svg",
 
 	// Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
 	future: {
@@ -67,7 +68,7 @@ const config = {
 				title: "Jafa",
 				logo: {
 					alt: "Jafa Logo",
-					src: "img/logo.svg",
+					src: "img/jafa_logo.svg",
 				},
 				items: [
 					{
