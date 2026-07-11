@@ -1,0 +1,61 @@
+---
+sidebar_position: 7
+---
+
+# jafa deploy
+
+Build a project and deploy it to Roblox using
+[Mantle](https://mantledeploy.vercel.app/).
+
+```sh
+jafa deploy <project-name> [target-directory] [-e|--environment <env>] [-g|--groupid <id>] [-p|--payments <mode>] [-n|--name <place-name>]
+```
+
+- `project-name` — required. Must already exist under `projects/`.
+- `target-directory` — workspace root. Defaults to the current directory
+  (`.`).
+- `-e, --environment` — the Mantle environment to deploy (matches
+  `environments.*.label` in `mantle.yml`). Defaults to `dev`.
+- `-g, --groupid` — numeric Roblox group ID. Sets `owner.group` in
+  `mantle.yml`. Omit to deploy under your personal account.
+- `-p, --payments` — sets the `payments` field in `mantle.yml` (`owner`,
+  `personal`, or `group`).
+- `-n, --name` — sets the deployed place's
+  `target.experience.places.start.configuration.name`.
+
+Mantle itself must already be authenticated with Roblox — see Mantle's
+[Authentication](https://mantledeploy.vercel.app/docs/authentication) docs.
+`mantle` is installed automatically by `jafa init` via `rokit install`.
+
+## What it does
+
+1. Runs [`build`](./build.mdx) for `project-name`, producing
+   `artifacts/<project-name>/build.rbxl`.
+2. Creates (or updates) `artifacts/<project-name>/<environment>/mantle.yml`:
+   - Points `target.experience.places.start.file` at the build output.
+   - Sets `owner.group` when `--groupid` is passed (errors if it isn't
+     numeric).
+   - Sets `payments` when `--payments` is passed.
+   - Sets the place's `configuration.name` when `--name` is passed.
+   - Ensures an `environments` entry exists for `--environment`, defaulting
+     `targetAccess` to `private` on first creation.
+   - Sets `targetNamePrefix: environmentLabel` for `dev` and `stg`
+     environments (so deployed resources are prefixed `[DEV]`/`[STG]`).
+     `prod` (and any other label) is left alone.
+3. Runs `mantle deploy` against that directory with
+   `--environment <environment>`.
+
+Each environment gets its own `mantle.yml` and Mantle state, so `dev`, `stg`,
+and `prod` deployments for the same project don't share state or resources.
+
+Fields not covered by these flags (badges, social links, avatar
+configuration, remote state, etc.) aren't touched — edit the generated
+`mantle.yml` directly for anything beyond `owner`, `payments`, the place file,
+the place name, and environments.
+
+## Examples
+
+```sh
+jafa deploy my-experience -e dev -g 35171099 -p group -n "my-experience_dev"
+jafa deploy my-experience -e prod -g 35171099 -p group
+```
