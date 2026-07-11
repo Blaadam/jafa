@@ -11,6 +11,13 @@ Roblox experiences can live side by side in one repository.
 npm install -g @blaadam/jafa
 ```
 
+> **NOTE**: Until the package is uploaded to npm, please use:
+
+```sh
+npm run build
+npm link jafa
+```
+
 ## Usage
 
 ```sh
@@ -19,12 +26,12 @@ jafa <command> [options]
 
 ### Commands
 
-| Command | Description |
-| --- | --- |
-| `init [directory]` | Create a new Jafa workspace in the given directory (defaults to the current directory). Sets up Rojo/Wally/Rokit config, initializes git, installs tools via `rokit install`, and creates a starter project. |
-| `new <project-name> [target-directory]` | Create a new project inside an existing Jafa workspace. |
-| `help` | Show help information. |
-| `version` | Show the CLI version. |
+| Command                                 | Description                                                                                                                                                                                                  |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `init [directory]`                      | Create a new Jafa workspace in the given directory (defaults to the current directory). Sets up Rojo/Wally/Rokit config, initializes git, installs tools via `rokit install`, and creates a starter project. |
+| `new <project-name> [target-directory]` | Create a new project inside an existing Jafa workspace.                                                                                                                                                      |
+| `help`                                  | Show help information.                                                                                                                                                                                       |
+| `version`                               | Show the CLI version.                                                                                                                                                                                        |
 
 ### Examples
 
