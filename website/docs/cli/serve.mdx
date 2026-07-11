@@ -1,0 +1,27 @@
+---
+sidebar_position: 5
+---
+
+# jafa serve
+
+Serve a project for live-sync with Roblox Studio.
+
+```sh
+jafa serve <project-name> [target-directory]
+```
+
+- `project-name` — required. Must already exist under `projects/`.
+- `target-directory` — workspace root. Defaults to the current directory
+  (`.`).
+
+## What it does
+
+Runs `rojo serve` against
+`projects/<project-name>/default.project.json`, so the Rojo Studio plugin can
+sync file changes live.
+
+## Examples
+
+```sh
+jafa serve my-experience
+```

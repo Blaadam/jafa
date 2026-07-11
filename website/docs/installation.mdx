@@ -1,0 +1,46 @@
+---
+sidebar_position: 2
+---
+
+# Installation
+
+Jafa is a Node.js CLI, published as `@blaadam/jafa`.
+
+## Requirements
+
+- Node.js 20 or above
+- [Rokit](https://github.com/rojo-rbx/rokit) available on your `PATH` (Jafa
+  runs `rokit install` for you during `jafa init`, but Rokit itself must
+  already be installed)
+- Git
+
+## Install from npm
+
+```sh
+npm install -g @blaadam/jafa
+```
+
+:::note
+Until the package is published to npm, build and link it locally instead — see
+below.
+:::
+
+## Install from source
+
+```sh
+git clone https://github.com/blaadam/jafa.git
+cd jafa
+npm install
+npm run build
+npm link
+```
+
+`npm run build` compiles TypeScript from `src/` to `dist/`, which is what the
+`jafa` bin points to. `npm link` makes the `jafa` command available globally.
+
+## Verify
+
+```sh
+jafa --version
+jafa --help
+```

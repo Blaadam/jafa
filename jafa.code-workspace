@@ -1,0 +1,88 @@
+{
+  "folders": [
+    {
+      "name": "Repository",
+      "path": "."
+    },
+    {
+      "name": "Jafa",
+      "path": "src"
+    },
+    {
+      "name": "Website",
+      "path": "website"
+    },
+    {
+      "name": "Scaffolding",
+      "path": "scaffolding"
+    }
+  ],
+  "settings": {
+    "todohighlight.keywords": [
+      {
+        "text": "#BEWARE",
+        "color": "#000",
+        "backgroundColor": "#fc7005",
+        "overviewRulerColor": "rgb(252, 112, 5, 0.8)"
+      },
+      {
+        "text": "#HACK",
+        "color": "#000",
+        "backgroundColor": "#0073ff",
+        "overviewRulerColor": "rgba(0, 115, 255, 0.8)"
+      },
+      {
+        "text": "#FIXME",
+        "color": "#000",
+        "backgroundColor": "#f06292",
+        "overviewRulerColor": "rgba(240, 98, 146, 0.8)"
+      },
+      {
+        "text": "#TODO",
+        "color": "#000",
+        "backgroundColor": "#ffbd2a",
+        "overviewRulerColor": "rgba(255, 189, 42, 0.8)"
+      },
+    ],
+    "todohighlight.include": [
+      "**/*.json",
+      "**/*.py",
+      "**/*.luau"
+    ],
+    "todohighlight.exclude": [
+      "**/third_party/**"
+    ],
+    "editor.insertSpaces": true,
+    "editor.indentSize": 4,
+    "editor.tabSize": 4,
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "search.exclude": {
+      "**/*.code-search": true,
+      "**/*.project.json": true,
+      ".git": true
+    },
+    "search.useIgnoreFiles": false,
+    "files.exclude": {
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true,
+      "**/.luaurc": false
+    },
+    "indentRainbow.excludedLanguages": [
+      "plaintext",
+      "yaml"
+    ],
+    "[plaintext]": {
+      "files.insertFinalNewline": false
+    },
+    "[json]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "streetsidesoftware.code-spell-checker",
+      "wayou.vscode-todo-highlight",
+    ]
+  }
+}

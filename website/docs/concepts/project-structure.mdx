@@ -1,0 +1,59 @@
+---
+sidebar_position: 2
+---
+
+# Project structure
+
+Running `jafa new <project-name> [target-directory]` adds a new project under
+`projects/<project-name>` inside a workspace.
+
+## Folders
+
+Each project is scaffolded with:
+
+```
+projects/<project-name>/
+├── client/
+│   ├── services/
+│   ├── controllers/
+│   ├── modules/
+│   └── ClientMain.client.luau
+├── server/
+│   ├── services/
+│   ├── modules/
+│   └── ServerMain.server.luau
+├── shared/
+│   ├── databases/
+│   ├── modules/
+│   ├── facilitators/
+│   └── LogConfig.luau
+├── ui/
+│   ├── components/
+│   ├── windows/
+│   └── stories/
+├── preload/
+├── character/
+└── default.project.json
+```
+
+## Rojo tree
+
+`default.project.json` wires this folder structure up to the Roblox data
+model:
+
+- `ReplicatedStorage/Shared` — `shared/facilitators`, `shared/modules`,
+  `shared/databases`, plus `Packages` linked to the workspace's
+  `wally/Packages`
+- `ReplicatedStorage/Client` — `client/services`, `client/controllers`,
+  `client/modules`, and `ClientMain`
+- `ReplicatedStorage/UI` — the `ui/` folder
+- `ServerScriptService` — `server/services`, `server/modules`, and
+  `ServerMain`
+- `Workspace` — a baseplate `Part`, with `FilteringEnabled` and
+  `StreamingEnabled` on by default
+
+## Where build output goes
+
+`jafa build` writes to `artifacts/<project-name>/build.rbxl` at the workspace
+root (not inside the project folder), alongside a `sourcemap.json` written
+back into the project directory.

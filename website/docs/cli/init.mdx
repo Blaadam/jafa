@@ -1,0 +1,34 @@
+---
+sidebar_position: 1
+---
+
+# jafa init
+
+Create a new Jafa workspace.
+
+```sh
+jafa init [target-directory]
+```
+
+- `target-directory` — where to create the workspace. Defaults to the
+  current directory (`.`).
+
+## What it does
+
+1. Copies the workspace scaffolding (`default.project.json`, `rokit.toml`,
+   `selene.toml`, `stylua.toml`, `wally/wally.toml`) into the target
+   directory.
+2. Initializes a git repository, unless one already exists.
+3. Runs `rokit install` to install Rojo, Wally, StyLua, Lune, Mantle, Selene,
+   and wally-package-types.
+4. Runs `wally install --project-path ./wally`.
+5. Creates a starter project inside `projects/`.
+
+See [Workspaces](../concepts/workspace.mdx) for details on what gets created.
+
+## Examples
+
+```sh
+jafa init .
+jafa init my-game
+```

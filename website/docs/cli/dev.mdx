@@ -1,0 +1,27 @@
+---
+sidebar_position: 6
+---
+
+# jafa dev
+
+Build, open, and serve a project, in order.
+
+```sh
+jafa dev <project-name> [target-directory]
+```
+
+- `project-name` — required. Must already exist under `projects/`.
+- `target-directory` — workspace root. Defaults to the current directory
+  (`.`).
+
+## What it does
+
+Runs [`build`](./build.mdx), then [`open`](./open.mdx), then
+[`serve`](./serve.mdx) for the given project, in that order. This is the
+fastest way to get from a fresh checkout to Studio syncing live changes.
+
+## Examples
+
+```sh
+jafa dev my-experience
+```

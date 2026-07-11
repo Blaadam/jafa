@@ -1,0 +1,43 @@
+---
+sidebar_position: 3
+---
+
+# Quick Start
+
+This walks through creating a workspace, adding a project, and running it in
+Roblox Studio.
+
+## 1. Create a workspace
+
+```sh
+jafa init my-game
+cd my-game
+```
+
+`init` scaffolds `default.project.json`, `rokit.toml`, `selene.toml`,
+`stylua.toml`, and `wally/wally.toml`, initializes git, installs tools via
+`rokit install`, and creates a starter project for you. See
+[Workspaces](./concepts/workspace.mdx) for what's actually created.
+
+## 2. Add a project
+
+```sh
+jafa new my-experience
+```
+
+This adds `projects/my-experience`, scaffolded with the standard
+`client`/`server`/`shared`/`ui` folder structure. See
+[Project structure](./concepts/project-structure.mdx) for a full breakdown.
+
+## 3. Build, open, and serve
+
+Run all three in order with one command:
+
+```sh
+jafa dev my-experience
+```
+
+`dev` builds the project with Rojo, opens the resulting `.rbxl` file in
+Roblox Studio, then starts `rojo serve` so Studio can sync live changes.
+
+You can also run each step individually — see the [CLI Reference](./cli/init.mdx).

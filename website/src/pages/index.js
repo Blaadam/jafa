@@ -20,7 +20,7 @@ function HomepageHeader() {
           <Link
             className="button button--secondary button--lg"
             to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
+            Get Started
           </Link>
         </div>
       </div>
@@ -32,7 +32,7 @@ export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`${siteConfig.title} by ${siteConfig.organizationName}`}
+      title={`${siteConfig.title} - ${siteConfig.tagline}`}
       description="A CLI tool making Roblox repositories - simpler.">
       <HomepageHeader />
       <main>

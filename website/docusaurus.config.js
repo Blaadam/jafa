@@ -74,7 +74,7 @@ const config = {
 						type: "docSidebar",
 						sidebarId: "tutorialSidebar",
 						position: "left",
-						label: "Tutorial",
+						label: "Docs",
 					},
 					{
 						href: "https://github.com/blaadam/jafa",
@@ -90,8 +90,12 @@ const config = {
 						title: "Docs",
 						items: [
 							{
-								label: "Tutorial",
+								label: "Getting Started",
 								to: "/docs/intro",
+							},
+							{
+								label: "CLI Reference",
+								to: "/docs/cli/init",
 							},
 						],
 					},

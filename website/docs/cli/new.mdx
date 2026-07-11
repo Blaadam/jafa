@@ -1,0 +1,33 @@
+---
+sidebar_position: 2
+---
+
+# jafa new
+
+Create a new project inside an existing Jafa workspace.
+
+```sh
+jafa new <project-name> [target-directory]
+```
+
+- `project-name` — required. Name of the project, and the folder created
+  under `projects/`.
+- `target-directory` — workspace root to create the project in. Defaults to
+  the current directory (`.`).
+
+## What it does
+
+Adds `projects/<project-name>`, scaffolded with the standard
+`client`/`server`/`shared`/`ui` folder structure and a Rojo project tree
+wired up to `ReplicatedStorage`, `ServerScriptService`, and `Workspace`. See
+[Project structure](../concepts/project-structure.mdx) for the full layout.
+
+Fails if `target-directory` isn't a Jafa workspace (no `projects/` folder), or
+if a project with the same name already exists.
+
+## Examples
+
+```sh
+jafa new my-experience
+jafa new my-experience ./my-game
+```

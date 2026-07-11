@@ -4,32 +4,34 @@ import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
+    title: 'One Workspace, Many Experiences',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        <code>jafa init</code> scaffolds a shared Rojo/Wally/Rokit workspace
+        once, then <code>jafa new</code> adds as many Roblox experiences as
+        you need inside it — no re-wiring tooling per project.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Consistent Project Structure',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Every project gets the same <code>client</code>/<code>server</code>/
+        <code>shared</code>/<code>ui</code> layout, wired into a Rojo tree
+        automatically, so any project in the repo feels familiar.
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'Build, Open, Serve — One Command',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        <code>jafa dev</code> builds a project, opens it in Roblox Studio, and
+        starts <code>rojo serve</code> for live-sync, in one step.
       </>
     ),
   },
