@@ -1,8 +1,8 @@
 --!nocheck
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Loader = require(ReplicatedStorage.Wally.Loader)
-local Logger = require(ReplicatedStorage.Packages.Logger)
+local Loader = require(ReplicatedStorage.Shared.Packages.Loader)
+local Logger = require(ReplicatedStorage.Shared.Modules.Logger)
 local Log = Logger.new()
 
 if not game:IsLoaded() then

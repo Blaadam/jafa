@@ -6,9 +6,9 @@
     "body": [
       "local ReplicatedStorage = game:GetService(\"ReplicatedStorage\")",
 
-      "local Net = require(ReplicatedStorage.Wally.Net)\n",
+      "local Net = require(ReplicatedStorage.Shared.Packages.Net)\n",
 
-      "local Logger = require(ReplicatedStorage.Packages.Logger)",
+      "local Logger = require(ReplicatedStorage.Shared.Packages.Logger)",
       "local Log = Logger.new()\n",
 
       "local $1Service = {}\n",

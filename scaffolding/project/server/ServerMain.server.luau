@@ -1,28 +1,27 @@
 --!nocheck
-local Debris = game:GetService("Debris")
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local ServerScriptService = game:GetService("ServerScriptService")
 local ServerStorage = game:GetService("ServerStorage")
 local Workspace = game:GetService("Workspace")
 
-local Loader = require(ReplicatedStorage.Wally.Loader)
+local Loader = require(ReplicatedStorage.Shared.Packages.Loader)
 
-local Logger = require(ReplicatedStorage.Packages.Logger)
+local Logger = require(ReplicatedStorage.Shared.Modules.Logger)
 local Log = Logger.new()
 
 local PRODUCTION_PLACE_IDS = { -1 }
 
 function HideDebuggingUtils(list: Instance)
-    local adornments = list:QueryDescendants("ConeHandleAdornment, SphereHandleAdornment")
-    for _, v in adornments do
-        Debris:Destroy()
-    end
+	local adornments = list:QueryDescendants("ConeHandleAdornment, SphereHandleAdornment")
+	for _, v in adornments do
+		v:Destroy()
+	end
 
-    local interactions = list:QueryDescendants("BasePart [Transparency > 0] > .Interaction")
-    for _, v in interactions do
-        v.Transparency = 1
-    end
+	local interactions = list:QueryDescendants("BasePart [Transparency = 0] > .Interaction")
+	for _, v in interactions do
+		v.Transparency = 1
+	end
 end
 
 local Success, Response = pcall(function()

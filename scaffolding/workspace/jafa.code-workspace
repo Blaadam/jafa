@@ -1,0 +1,112 @@
+{
+  "folders": [
+    {
+      "name": "Repository",
+      "path": "."
+    },
+    {
+      "name": "Project-Name",
+      "path": "projects/project-name"
+    },
+    {
+      "name": "Wally",
+      "path": "wally"
+    },
+    {
+      "name": "Artifacts",
+      "path": "artifacts"
+    }
+  ],
+  "settings": {
+    "todohighlight.keywords": [
+      {
+        "text": "#BEWARE",
+        "color": "#000",
+        "backgroundColor": "#fc7005",
+        "overviewRulerColor": "rgb(252, 112, 5, 0.8)"
+      },
+      {
+        "text": "#HACK",
+        "color": "#000",
+        "backgroundColor": "#0073ff",
+        "overviewRulerColor": "rgba(0, 115, 255, 0.8)"
+      },
+      {
+        "text": "#FIXME",
+        "color": "#000",
+        "backgroundColor": "#f06292",
+        "overviewRulerColor": "rgba(240, 98, 146, 0.8)"
+      },
+      {
+        "text": "#TODO",
+        "color": "#000",
+        "backgroundColor": "#ffbd2a",
+        "overviewRulerColor": "rgba(255, 189, 42, 0.8)"
+      },
+    ],
+    "todohighlight.include": [
+      "**/*.json",
+      "**/*.py",
+      "**/*.luau"
+    ],
+    "todohighlight.exclude": [
+      "**/third_party/**"
+    ],
+    "fusionautocomplete.fusionVersion": "0.2",
+    "fusionautocomplete.casingMode": "PascalCase",
+    "editor.insertSpaces": true,
+    "editor.indentSize": 4,
+    "editor.tabSize": 4,
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "search.exclude": {
+      "**/*.code-search": true,
+      "**/*.project.json": true,
+      ".git": true
+    },
+    "search.useIgnoreFiles": false,
+    "files.exclude": {
+      "**/sourcemap.json": true,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true,
+      "**/.luaurc": false
+    },
+    "indentRainbow.excludedLanguages": [
+      "plaintext",
+      "yaml"
+    ],
+    "stylua.searchParentDirectories": true,
+    "yaml.schemas": {
+      "https://mantledeploy.vercel.app/schemas/v0.11.14/schema.json": "mantle.yml"
+    },
+    "[plaintext]": {
+      "files.insertFinalNewline": false
+    },
+    "luau.trace.server": "verbose",
+    "luau-lsp.diagnostics.workspace": true,
+    "luau-lsp.completion.imports.separateGroupsWithLine": true,
+    "[luau]": {
+      "editor.insertSpaces": false,
+      "editor.defaultFormatter": "JohnnyMorganz.stylua",
+      "editor.formatOnSave": true
+    },
+    "[json]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "stylua.searchBinaryInPATH": true
+  },
+  "extensions": {
+    "recommendations": [
+      "streetsidesoftware.code-spell-checker",
+      "JohnnyMorganz.luau-lsp",
+      "Kampfkarren.roblox-lua-autofills",
+      "wayou.vscode-todo-highlight",
+      "filiptibell.tooling-language-server",
+      "filiptibell.wally-utilities",
+      "Kampfkarren.selene-vscode",
+      "Virtual.fusionautocomplete",
+      "nefrob.vscode-just-syntax",
+      "johnnymorganz.stylua"
+    ]
+  }
+}

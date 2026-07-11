@@ -68,10 +68,18 @@
         "$className": "Part",
         "$properties": {
           "Anchored": true,
-          "CanCollide": false,
+          "CanCollide": true,
           "Material": "Concrete",
-          "Size": [2048, 1, 2048],
-          "Position": [0, 0.5, 0]
+          "Size": [
+            2048,
+            1,
+            2048
+          ],
+          "Position": [
+            0,
+            0.5,
+            0
+          ]
         }
       }
     }

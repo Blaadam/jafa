@@ -4,6 +4,8 @@ This repository was created with [Jafa](https://jafa.adwo.dev) - A CLI tool maki
 
 ## Getting Started
 
+For Luau linting in VS Code, open the `jafa.code-workspace` or open the specific project folder, such as `projects/project-name`, so Luau LSP can watch that project's `sourcemap.json`.
+
 To build the place, use:
 
 ```sh
