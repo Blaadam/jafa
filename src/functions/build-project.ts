@@ -36,5 +36,8 @@ export async function BuildProject(
         log.info(`Build output: ${buildOutput}`);
     }
 
+    log.info(`Building sourcemap for "${projectName}"`)
+    shell.exec(`rojo sourcemap -o ${escape(resolve(projectDest, "sourcemap.json"))}`);
+
     return projectDest;
 }
