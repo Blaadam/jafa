@@ -5,10 +5,11 @@ import { buildCommand } from "./build.js";
 import { openCommand } from "./open.js";
 import { serveCommand } from "./serve.js";
 import { devCommand } from "./dev.js";
+import { deployCommand } from "./deploy.js";
 
 export type { CommandDefinition } from "./types.js";
 
-export const commands: CommandDefinition[] = [initCommand, newCommand, buildCommand, openCommand, serveCommand, devCommand];
+export const commands: CommandDefinition[] = [initCommand, newCommand, buildCommand, openCommand, serveCommand, devCommand, deployCommand];
 
 export function findCommand(name: string): CommandDefinition | undefined {
   return commands.find((c) => c.name === name || c.aliases?.includes(name));
