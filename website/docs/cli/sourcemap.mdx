@@ -8,9 +8,13 @@ Generate a `sourcemap.json` for a project within the current Jafa workspace.
 
 ```sh
 jafa sourcemap <project-name> [target-directory]
+jafa sourcemap -a|--all [target-directory]
 ```
 
-- `project-name` — required. Must already exist under `projects/`.
+- `project-name` — required unless `-a`/`--all` is passed. Must already
+  exist under `projects/`.
+- `-a, --all` — generate a sourcemap for every project under `projects/`
+  instead of a single named one.
 - `target-directory` — workspace root. Defaults to the current directory
   (`.`).
 
@@ -18,6 +22,10 @@ jafa sourcemap <project-name> [target-directory]
 
 Runs `rojo sourcemap` on `projects/<project-name>`, writing the result to
 `sourcemap.json` in the project directory.
+
+With `-a`/`--all`, this runs for every project directory found under
+`projects/`. If one project fails, the rest still run — failures are
+reported together at the end.
 
 [`build`](./build.mdx) already regenerates the sourcemap as part of building,
 so you only need to run this command directly if you want an up-to-date
@@ -28,4 +36,5 @@ that reads `sourcemap.json`).
 
 ```sh
 jafa sourcemap my-experience
+jafa sourcemap --all
 ```

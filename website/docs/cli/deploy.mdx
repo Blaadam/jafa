@@ -9,9 +9,14 @@ Build a project and deploy it to Roblox using
 
 ```sh
 jafa deploy <project-name> [target-directory] [-e|--environment <env>] [-g|--groupid <id>] [-p|--payments <mode>] [-n|--name <place-name>]
+jafa deploy -a|--all [target-directory] [-e|--environment <env>] [-g|--groupid <id>] [-p|--payments <mode>] [-n|--name <place-name>]
 ```
 
-- `project-name` — required. Must already exist under `projects/`.
+- `project-name` — required unless `-a`/`--all` is passed. Must already
+  exist under `projects/`.
+- `-a, --all` — build and deploy every project under `projects/` instead of
+  a single named one. The other flags below apply to every project deployed
+  this way.
 - `target-directory` — workspace root. Defaults to the current directory
   (`.`).
 - `-e, --environment` — the Mantle environment to deploy (matches
@@ -53,9 +58,15 @@ configuration, remote state, etc.) aren't touched — edit the generated
 `mantle.yml` directly for anything beyond `owner`, `payments`, the place file,
 the place name, and environments.
 
+With `-a`/`--all`, steps 1-3 run for every project directory found under
+`projects/`, all deployed to the same `--environment` (and other flags, if
+given). If one project fails to build or deploy, the rest still run —
+failures are reported together at the end.
+
 ## Examples
 
 ```sh
 jafa deploy my-experience -e dev -g 35171099 -p group -n "my-experience_dev"
 jafa deploy my-experience -e prod -g 35171099 -p group
+jafa deploy --all -e dev -g 35171099 -p group
 ```

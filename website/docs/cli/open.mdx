@@ -8,10 +8,13 @@ Open a project's built `.rbxl` file.
 
 ```sh
 jafa open <project-name> [target-directory]
+jafa open -a|--all [target-directory]
 ```
 
-- `project-name` — required. Must have already been built (see
-  [`jafa build`](./build.mdx)).
+- `project-name` — required unless `-a`/`--all` is passed. Must have
+  already been built (see [`jafa build`](./build.mdx)).
+- `-a, --all` — open every project under `projects/` instead of a single
+  named one.
 - `target-directory` — workspace root. Defaults to the current directory
   (`.`).
 
@@ -21,6 +24,11 @@ Opens `artifacts/<project-name>/build.rbxl` with your OS's default handler
 for `.rbxl` files (normally Roblox Studio). Fails if the project hasn't been
 built yet.
 
+With `-a`/`--all`, this opens every built project under `projects/`, which
+means one Roblox Studio window per project. If one fails to open (for
+example because it hasn't been built), the rest still open — failures are
+reported together at the end.
+
 Linux is supported via `xdg-open`, but note that Roblox Studio itself has
 limited Linux support.
 
@@ -29,4 +37,5 @@ limited Linux support.
 ```sh
 jafa build my-experience
 jafa open my-experience
+jafa open --all
 ```

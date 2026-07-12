@@ -8,9 +8,13 @@ Build a project within the current Jafa workspace.
 
 ```sh
 jafa build <project-name> [target-directory]
+jafa build -a|--all [target-directory]
 ```
 
-- `project-name` — required. Must already exist under `projects/`.
+- `project-name` — required unless `-a`/`--all` is passed. Must already
+  exist under `projects/`.
+- `-a, --all` — build every project under `projects/` instead of a single
+  named one.
 - `target-directory` — workspace root. Defaults to the current directory
   (`.`).
 
@@ -20,8 +24,13 @@ Runs `rojo build` on `projects/<project-name>/default.project.json`, writing
 the result to `artifacts/<project-name>/build.rbxl`, then writes a
 `sourcemap.json` back into the project directory via `rojo sourcemap`.
 
+With `-a`/`--all`, this runs for every project directory found under
+`projects/`. If one project fails to build, the rest still run — failures
+are reported together at the end.
+
 ## Examples
 
 ```sh
 jafa build my-experience
+jafa build --all
 ```
