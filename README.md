@@ -22,7 +22,7 @@ npm install -g @blaadam/jafa
 
 ```sh
 npm run build
-npm link jafa
+npm link
 ```
 
 ## Usage
@@ -33,18 +33,29 @@ jafa <command> [options]
 
 ### Commands
 
-| Command                                 | Description                                                                                                                                                                                                  |
-| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `init [directory]`                      | Create a new Jafa workspace in the given directory (defaults to the current directory). Sets up Rojo/Wally/Rokit config, initializes git, installs tools via `rokit install`, and creates a starter project. |
-| `new <project-name> [target-directory]` | Create a new project inside an existing Jafa workspace.                                                                                                                                                      |
-| `help`                                  | Show help information.                                                                                                                                                                                       |
-| `version`                               | Show the CLI version.                                                                                                                                                                                        |
+| Command | Description |
+| --- | --- |
+| `init [target-directory]` | Create a new Jafa workspace in the given directory (defaults to the current directory). |
+| `new <project-name> [target-directory]` | Create a new project inside an existing Jafa workspace. |
+| `build <project-name>\|-a\|--all [target-directory]` | Build a project (or every project) with Rojo, writing to `artifacts/`. |
+| `open <project-name>\|-a\|--all [target-directory]` | Open a project's built `.rbxl` file (or every built project) in Roblox Studio. |
+| `serve <project-name> [target-directory]` | Serve a project for live-sync with Roblox Studio via `rojo serve`. |
+| `dev <project-name> [target-directory]` | Build, open, and serve a project, in order. |
+| `deploy <project-name>\|-a\|--all [target-directory] [-e env] [-g groupid] [-p payments] [-n name]` | Build a project and deploy it to Roblox using Mantle. |
+| `sourcemap <project-name>\|-a\|--all [target-directory]` | Generate a `sourcemap.json` for a project (or every project). |
+| `help` | Show help information. |
+| `version` | Show the CLI version. |
+
+`build`, `open`, `deploy`, and `sourcemap` accept `-a`/`--all` to run against every project under `projects/` instead of a single named one.
 
 ### Examples
 
 ```sh
 jafa init .
 jafa new my-experience
+jafa dev my-experience
+jafa build --all
+jafa deploy my-experience -e prod -g 35171099 -p group
 jafa --help
 jafa --version
 ```
@@ -53,11 +64,12 @@ jafa --version
 
 Running `jafa init` scaffolds a workspace with:
 
-- `default.project.json`, `rokit.toml`, `selene.toml`, `stylua.toml`
-- `wally/wally.toml` for package management
+- `rokit.toml`, `wally/wally.toml` for tool and package management
+- `jafa.code-workspace`, `.vscode/`, `.gitignore`, `README.md`
 - A git repository (if one doesn't already exist)
 - Tools installed via `rokit install` (Rojo, Wally, StyLua, Lune, Mantle, Selene, wally-package-types)
-- A `projects/` directory containing a starter project
+- Wally packages installed via `wally install --project-path ./wally`
+- A `projects/` directory containing a starter project (see below — this is where per-project files like `default.project.json`, `selene.toml`, and `stylua.toml` live)
 
 ## What `new` creates
 
@@ -65,6 +77,10 @@ Running `jafa new <project-name>` adds a new project under `projects/<project-na
 scaffolded with client/server/shared/UI folder structure (services, controllers,
 modules, databases, components, etc.) and a Rojo project tree wired up to
 `ReplicatedStorage`, `ServerScriptService`, and `Workspace`.
+
+## Documentation
+
+Full docs, including per-command reference and workspace/project concepts, are at [jafa.adwo.dev](https://jafa.adwo.dev), or run `npm run docs` to serve them locally from `website/`.
 
 ## Roadmap
 
@@ -74,6 +90,8 @@ modules, databases, components, etc.) and a Rojo project tree wired up to
 - [x] `open` — open a project
 - [x] `serve` — serve a project
 - [x] `dev` — build, open, and serve a project (in order)
+- [x] `deploy` — build and deploy a project to Roblox using Mantle
+- [x] `sourcemap` — generate a sourcemap for a project
 
 ## Development
 

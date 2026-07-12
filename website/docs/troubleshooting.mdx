@@ -1,0 +1,96 @@
+---
+sidebar_position: 6
+---
+
+# Troubleshooting & FAQ
+
+## Command errors
+
+### "Unknown flags: ..." / "Unknown option(s) for ..."
+
+Every command rejects flags it doesn't recognize. Check the command's
+[CLI Reference](./cli/init.mdx) page for the exact flags it accepts —
+`-a`/`--all` is only supported by `build`, `open`, `deploy`, and `sourcemap`,
+for example, not `serve` or `dev`.
+
+### `"<name>" doesn't exist in ".../projects"`
+
+The project name you passed doesn't have a matching folder under
+`projects/` in the target workspace. Run `jafa new <name>` first, or check
+you're pointing at the right `target-directory`.
+
+:::note
+For `build`, `serve`, and `sourcemap`, this specific error is logged but
+**does not fail the command** — the process still exits with code `0`. For
+`open` and `deploy`, the same situation *does* throw and exits non-zero. If
+you're scripting around `jafa` (CI, git hooks), don't rely on the exit code
+of `build`/`serve`/`sourcemap` alone to detect a missing project; check the
+logged output too.
+:::
+
+### `"<name>" doesn't exist in ".../artifacts"` (from `jafa open`)
+
+The project hasn't been built yet. Run `jafa build <name>` (or `jafa dev
+<name>`, which builds first) before opening it.
+
+### `"--groupid/-g" must be a numeric Roblox group ID, got "..."`
+
+`jafa deploy`'s `-g`/`--groupid` must be digits only — it's written directly
+into `mantle.yml`'s `owner.group`. Omit it entirely to deploy under your
+personal account instead of a group.
+
+### A command fails with the underlying tool's own error text
+
+`jafa build`, `serve`, `sourcemap`, and `deploy` all shell out to `rojo` or
+`mantle` and treat **anything written to stderr as a failure**, regardless
+of the tool's own exit code. If one of these commands reports an error but
+the build output or deployment otherwise looks correct, check whether the
+wrapped tool (Rojo/Mantle) printed a warning to stderr — Jafa currently
+can't distinguish a warning from a real failure here.
+
+### Your operating system is not supported (from `jafa open`)
+
+`jafa open` (and therefore `jafa dev`) only knows how to open `.rbxl` files
+on Windows, macOS, and Linux (`xdg-open`). On Linux, note that Roblox Studio
+itself has limited Linux support even once the file opens.
+
+## `jafa init` ran but something's missing or broken
+
+`jafa init` runs `rokit install` and `wally install --project-path ./wally`
+via a plain shell command — their output prints straight to your terminal,
+but **their exit code isn't checked**. If Rokit or Wally aren't correctly
+installed and on your `PATH`, `jafa init` can still report
+"Workspace created successfully" even though tool or package installation
+silently failed. If something in the generated workspace doesn't work, check
+the `rokit install`/`wally install --project-path ./wally` output further up
+your terminal scrollback, or re-run those two commands manually from the
+workspace root.
+
+## FAQ
+
+**Why doesn't `jafa new` fail my script when it errors?**
+Unlike every other command, `jafa new` reports invalid input (missing
+project name, unknown flags) by logging an error and returning, without
+throwing — so it currently always exits with code `0`. This is a known
+inconsistency; check the logged output rather than the exit code if you're
+calling `jafa new` from a script.
+
+**Where do `default.project.json`, `selene.toml`, and `stylua.toml` come
+from?** They're part of the starter *project* Jafa creates under
+`projects/<name>/`, not the workspace root — see
+[Workspaces](./concepts/workspace.mdx) and
+[Project structure](./concepts/project-structure.mdx).
+
+**Do I need to run `jafa sourcemap` manually?**
+No — [`jafa build`](./cli/build.mdx) already regenerates the sourcemap as
+part of building. Run `jafa sourcemap` directly only if you want an
+up-to-date `sourcemap.json` without doing a full build.
+
+**Can I edit the generated `mantle.yml` directly?**
+Yes. `jafa deploy` only manages `owner`, `payments`, the place file, the
+place name, and `environments` — see [`jafa deploy`](./cli/deploy.mdx) for
+exactly which fields it touches. Anything else (badges, social links, avatar
+configuration, remote state) is left alone once written.
+
+**Something's not covered here — where do I ask?**
+File an issue on [GitHub](https://github.com/blaadam/jafa).

@@ -10,16 +10,19 @@ projects.
 
 Running `jafa init [target-directory]` creates:
 
-- `default.project.json`, `rokit.toml`, `selene.toml`, `stylua.toml` — shared
-  Rojo/Rokit/Selene/StyLua configuration
+- `rokit.toml` — shared Rokit tool versions
 - `wally/wally.toml` — Wally package manifest, shared by every project in the
   workspace (each project links to `../../wally/Packages`)
+- `jafa.code-workspace`, `.vscode/`, `.gitignore`, `README.md` — editor and
+  repo scaffolding
 - A git repository, if one doesn't already exist
 - Tools installed via `rokit install`: Rojo, Wally, StyLua, Lune, Mantle,
   Selene, wally-package-types
 - Wally packages installed via `wally install --project-path ./wally`
 - A `projects/` directory containing a starter project (see
-  [Project structure](./project-structure.mdx))
+  [Project structure](./project-structure.mdx)) — the per-project
+  `default.project.json`, `selene.toml`, and `stylua.toml` live there, not at
+  the workspace root
 
 Everything under `projects/` is a separate Rojo project that shares this one
 set of tools and packages, so you don't reinstall or reconfigure them for

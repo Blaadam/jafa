@@ -15,14 +15,16 @@ jafa init [target-directory]
 
 ## What it does
 
-1. Copies the workspace scaffolding (`default.project.json`, `rokit.toml`,
-   `selene.toml`, `stylua.toml`, `wally/wally.toml`) into the target
-   directory.
+1. Copies the workspace scaffolding (`rokit.toml`, `wally/wally.toml`,
+   `jafa.code-workspace`, `.gitignore`, `.vscode/`, `README.md`) into the
+   target directory.
 2. Initializes a git repository, unless one already exists.
 3. Runs `rokit install` to install Rojo, Wally, StyLua, Lune, Mantle, Selene,
    and wally-package-types.
 4. Runs `wally install --project-path ./wally`.
-5. Creates a starter project inside `projects/`.
+5. Creates a starter project inside `projects/` — this is where
+   `default.project.json`, `selene.toml`, and `stylua.toml` come from; see
+   [`jafa new`](./new.mdx).
 
 See [Workspaces](../concepts/workspace.mdx) for details on what gets created.
 

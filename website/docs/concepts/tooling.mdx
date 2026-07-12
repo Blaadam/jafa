@@ -1,0 +1,61 @@
+---
+sidebar_position: 3
+---
+
+# Ecosystem tools
+
+Jafa doesn't replace the standard Roblox open-source tooling — it scaffolds
+and wires it together. This page is a quick primer on each tool it installs
+and where it fits in, useful if you're new to the Roblox mono-repo ecosystem.
+
+## Rokit
+
+[Rokit](https://github.com/rojo-rbx/rokit) is a toolchain manager, similar in
+spirit to `nvm` or `rustup`. `rokit.toml` at the workspace root pins exact
+versions of every other tool below, and `rokit install` (run automatically by
+`jafa init`) downloads and installs them to match. Rokit itself has to
+already be on your `PATH` before running `jafa init` — see
+[Installation](../installation.mdx).
+
+## Rojo
+
+[Rojo](https://rojo.space/) syncs files on disk into the Roblox data model.
+Every project's `default.project.json` describes how its `client/`,
+`server/`, `shared/`, and `ui/` folders map onto services like
+`ReplicatedStorage` and `ServerScriptService` — see
+[Project structure](./project-structure.mdx). `jafa build`, `jafa serve`, and
+`jafa sourcemap` all shell out to `rojo build`, `rojo serve`, and
+`rojo sourcemap` respectively.
+
+## Wally
+
+[Wally](https://wally.run/) is the package manager for Roblox/Luau. There's
+one shared `wally/wally.toml` per workspace (not per project), so every
+project links to the same `wally/Packages` directory instead of installing
+its own copy. `jafa init` runs `wally install --project-path ./wally` once,
+during setup.
+
+## Selene & StyLua
+
+[Selene](https://github.com/Kampfkarren/selene) is a Luau linter,
+[StyLua](https://github.com/JohnnyMorganz/StyLua) is a Luau formatter. Both
+are installed via Rokit; Jafa scaffolds a `selene.toml`/`stylua.toml` per
+project so linting and formatting rules travel with the project.
+
+## Lune
+
+[Lune](https://github.com/lune-org/lune) is a standalone Luau runtime,
+installed via Rokit for running Luau scripts outside of Roblox Studio (for
+example, build or codegen scripts). Jafa installs it but doesn't invoke it
+directly — it's there for you to script against.
+
+## Mantle
+
+[Mantle](https://mantledeploy.vercel.app/) manages deploying and configuring
+Roblox experiences from a `mantle.yml` file — think of it as
+infrastructure-as-code for a Roblox place. `jafa deploy` builds the project,
+then generates/updates a per-environment `mantle.yml` and runs
+`mantle deploy` against it. See [`jafa deploy`](../cli/deploy.mdx) for the
+fields Jafa manages for you, and Mantle's own
+[Authentication docs](https://mantledeploy.vercel.app/docs/authentication)
+for one-time account setup Jafa doesn't handle.
