@@ -20,10 +20,15 @@ export async function SourceProject(
         return "";
     }
 
+    const originalCwd = process.cwd();
     shell.cd(projectDest);
 
-    log.info(`Building sourcemap for "${projectName}"`)
-    shell.exec(`rojo sourcemap -o ${escape(resolve(projectDest, "sourcemap.json"))}`);
+    try {
+        log.info(`Building sourcemap for "${projectName}"`)
+        shell.exec(`rojo sourcemap -o ${escape(resolve(projectDest, "sourcemap.json"))}`);
+    } finally {
+        shell.cd(originalCwd);
+    }
 
     return projectDest;
 }

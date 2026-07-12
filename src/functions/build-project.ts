@@ -23,20 +23,25 @@ export async function BuildProject(
         return "";
     }
 
+    const originalCwd = process.cwd();
     shell.cd(projectDest);
 
-    // Create the build directory if it doesn't exist
-    log.verbose(`Ensuring build directory exists for ${projectName}...`);
-    const buildDir = resolve(cwd, "artifacts", projectName);
-    shell.mkdir("-p", buildDir);
+    try {
+        // Create the build directory if it doesn't exist
+        log.verbose(`Ensuring build directory exists for ${projectName}...`);
+        const buildDir = resolve(cwd, "artifacts", projectName);
+        shell.mkdir("-p", buildDir);
 
-    log.info(`Building project "${projectName}"...`);
-    const buildOutput = await execute(resolve(projectDest, "default.project.json"), resolve(buildDir, "build.rbxl"));
-    
-    if (buildOutput) {
-        log.info(`Build output: ${buildOutput}`);
+        log.info(`Building project "${projectName}"...`);
+        const buildOutput = await execute(resolve(projectDest, "default.project.json"), resolve(buildDir, "build.rbxl"));
+
+        if (buildOutput) {
+            log.info(`Build output: ${buildOutput}`);
+        }
+    } finally {
+        shell.cd(originalCwd);
     }
 
-    SourceProject(projectName, target);
+    await SourceProject(projectName, target);
     return projectDest;
 }
