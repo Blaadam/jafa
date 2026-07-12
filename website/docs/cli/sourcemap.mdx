@@ -1,0 +1,31 @@
+---
+sidebar_position: 8
+---
+
+# jafa sourcemap
+
+Generate a `sourcemap.json` for a project within the current Jafa workspace.
+
+```sh
+jafa sourcemap <project-name> [target-directory]
+```
+
+- `project-name` — required. Must already exist under `projects/`.
+- `target-directory` — workspace root. Defaults to the current directory
+  (`.`).
+
+## What it does
+
+Runs `rojo sourcemap` on `projects/<project-name>`, writing the result to
+`sourcemap.json` in the project directory.
+
+[`build`](./build.mdx) already regenerates the sourcemap as part of building,
+so you only need to run this command directly if you want an up-to-date
+sourcemap without doing a full build (for example, to refresh editor tooling
+that reads `sourcemap.json`).
+
+## Examples
+
+```sh
+jafa sourcemap my-experience
+```
