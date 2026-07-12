@@ -4,6 +4,7 @@ import process from "node:process";
 import exec from "../utilities/exec.js";
 import escape from "../utilities/escape.js";
 import { log } from "../helpers/log.js";
+import { SourceProject } from "./source-project.js";
 
 const execute = (projectPath: string, buildPath: string): Promise<string> => exec(`rojo build -o ${escape(buildPath)} ${escape(projectPath)}`);
 
@@ -36,8 +37,6 @@ export async function BuildProject(
         log.info(`Build output: ${buildOutput}`);
     }
 
-    log.info(`Building sourcemap for "${projectName}"`)
-    shell.exec(`rojo sourcemap -o ${escape(resolve(projectDest, "sourcemap.json"))}`);
-
+    SourceProject(projectName, target);
     return projectDest;
 }
