@@ -7,10 +7,11 @@ import { serveCommand } from "./serve.js";
 import { devCommand } from "./dev.js";
 import { deployCommand } from "./deploy.js";
 import { sourcemapCommand } from "./sourcemap.js";
+import { pullCommand } from "./pull.js";
 
 export type { CommandDefinition } from "./types.js";
 
-export const commands: CommandDefinition[] = [initCommand, newCommand, buildCommand, openCommand, serveCommand, devCommand, deployCommand, sourcemapCommand];
+export const commands: CommandDefinition[] = [initCommand, newCommand, buildCommand, openCommand, serveCommand, devCommand, deployCommand, sourcemapCommand, pullCommand];
 
 export function findCommand(name: string): CommandDefinition | undefined {
   return commands.find((c) => c.name === name || c.aliases?.includes(name));
