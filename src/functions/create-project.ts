@@ -4,6 +4,7 @@ import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { ReadJsonFile } from "../helpers/read-json.js";
 import { log } from "../helpers/log.js";
+import { AddToWorkspace } from "./workspace-file.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -64,6 +65,11 @@ export function CreateProject(
 	createFolders(projectDest, jsonStruct);
 
 	shell.rm(resolve(projectDest, "struct.json"));
+
+	log.verbose(`Adding project "${projectName}" to workspace file...`);
+	AddToWorkspace(cwd, projectName);
+
+	log.info(`Project "${projectName}" created successfully at "${projectDest}".`);
 
 	log.info(`Your jafa project has been initialized in ${cwd}.`);
 

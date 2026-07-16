@@ -1,0 +1,16 @@
+{
+    "places": [
+        {
+            "place_id": 0,
+            "universe_id": 0,
+            "assets": {
+                "Workspace": {
+                    "Terrain": "project://assets/Terrain.rbxm",
+                    "Map": "project://assets/Map.rbxm"
+                },
+
+                "Lighting": "project://assets/Lighting.rbxm"
+            }
+        }
+    ]
+}

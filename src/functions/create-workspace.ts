@@ -5,43 +5,47 @@ import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { CreateProject } from "./create-project.js";
 import { log } from "../helpers/log.js";
+import { CreateWorkspaceFile } from "./workspace-file.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export function CreateWorkspace(target: string): string {
-    const cwd = resolve(process.cwd(), target);
+	const cwd = resolve(process.cwd(), target);
 
-    shell.cd(cwd);
-    log.info(`Initializing jafa in ${cwd}`);
+	shell.cd(cwd);
+	log.info(`Initializing jafa in ${cwd}`);
 
-    // Copy the scaffolding files to the target directory
-    const scaffoldingRoot = resolve(__dirname, "../../scaffolding");
+	// Copy the scaffolding files to the target directory
+	const scaffoldingRoot = resolve(__dirname, "../../scaffolding");
 
-    const workspaceDir = resolve(scaffoldingRoot, "workspace");
-    const workspaceEntries = readdirSync(workspaceDir).map((entry) =>
-        resolve(workspaceDir, entry),
-    );
-    shell.cp("-R", workspaceEntries, ".");
+	const workspaceDir = resolve(scaffoldingRoot, "workspace");
+	const workspaceEntries = readdirSync(workspaceDir).map((entry) =>
+		resolve(workspaceDir, entry),
+	);
+	shell.cp("-R", workspaceEntries, ".");
 
-    // Setup git
-    if (shell.test("-d", ".git")) {
-        log.verbose("Git repository already exists, skipping.");
-    } else {
-        log.verbose("Initializing git repository...");
-        shell.exec("git init");
-    }
+	// Setup git
+	if (shell.test("-d", ".git")) {
+		log.verbose("Git repository already exists, skipping.");
+	} else {
+		log.verbose("Initializing git repository...");
+		shell.exec("git init");
+	}
 
-    // Install dependencies
-    log.info("Installing dependencies...");
-    shell.exec("rokit install");
+	// Install dependencies
+	log.info("Installing dependencies...");
+	shell.exec("rokit install");
 
-    log.verbose("Installing wally packages")
-    shell.exec("wally install --project-path ./wally");
+	log.verbose("Installing wally packages");
+	shell.exec("wally install --project-path ./wally");
 
-    log.verbose("Creating project...");
-    CreateProject("project-name", cwd, false);
+    log.info("Creating workspace file...");
+    CreateWorkspaceFile(cwd);
 
-    log.info("Workspace created successfully.");
-    return cwd;
+	log.verbose("Creating project...");
+	CreateProject("project-name", cwd, false);
+
+	log.info("Workspace created successfully.");
+	return cwd;
 }
