@@ -43,10 +43,11 @@ jafa <command> [options]
 | `dev <project-name> [target-directory]` | Build, open, and serve a project, in order. |
 | `deploy <project-name>\|-a\|--all [target-directory] [-e env] [-g groupid] [-p payments] [-n name]` | Build a project and deploy it to Roblox using Mantle. |
 | `sourcemap <project-name>\|-a\|--all [target-directory]` | Generate a `sourcemap.json` for a project (or every project). |
+| `pull <project-name>\|-a\|--all [target-directory]` | Pull published Roblox assets (terrain, maps, lighting, etc.) into a project (or every project), as described by its `.jafa` file. |
 | `help` | Show help information. |
 | `version` | Show the CLI version. |
 
-`build`, `open`, `deploy`, and `sourcemap` accept `-a`/`--all` to run against every project under `projects/` instead of a single named one.
+`build`, `open`, `deploy`, `sourcemap`, and `pull` accept `-a`/`--all` to run against every project under `projects/` instead of a single named one.
 
 ### Examples
 
@@ -56,6 +57,7 @@ jafa new my-experience
 jafa dev my-experience
 jafa build --all
 jafa deploy my-experience -e prod -g 35171099 -p group
+jafa pull my-experience
 jafa --help
 jafa --version
 ```
@@ -66,6 +68,8 @@ Running `jafa init` scaffolds a workspace with:
 
 - `rokit.toml`, `wally/wally.toml` for tool and package management
 - `jafa.code-workspace`, `.vscode/`, `.gitignore`, `README.md`
+- `asset-updater.luau`, the Lune script `jafa pull` uses to pull published
+  Roblox assets into a project
 - A git repository (if one doesn't already exist)
 - Tools installed via `rokit install` (Rojo, Wally, StyLua, Lune, Mantle, Selene, wally-package-types)
 - Wally packages installed via `wally install --project-path ./wally`
@@ -75,8 +79,9 @@ Running `jafa init` scaffolds a workspace with:
 
 Running `jafa new <project-name>` adds a new project under `projects/<project-name>`,
 scaffolded with client/server/shared/UI folder structure (services, controllers,
-modules, databases, components, etc.) and a Rojo project tree wired up to
-`ReplicatedStorage`, `ServerScriptService`, and `Workspace`.
+modules, databases, components, etc.), a `.jafa` asset manifest used by `jafa pull`,
+and a Rojo project tree wired up to `ReplicatedStorage`, `ServerScriptService`,
+and `Workspace`.
 
 ## Documentation
 
@@ -92,6 +97,7 @@ Full docs, including per-command reference and workspace/project concepts, are a
 - [x] `dev` — build, open, and serve a project (in order)
 - [x] `deploy` — build and deploy a project to Roblox using Mantle
 - [x] `sourcemap` — generate a sourcemap for a project
+- [x] `pull` — pull published Roblox assets into a project
 
 ## Development
 

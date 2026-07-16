@@ -1,0 +1,84 @@
+---
+sidebar_position: 9
+---
+
+# jafa pull
+
+Pull published Roblox assets (terrain, maps, lighting, etc.) into a
+project's files, as described by its `.jafa` manifest.
+
+```sh
+jafa pull <project-name> [target-directory]
+jafa pull -a|--all [target-directory]
+```
+
+- `project-name` — required unless `-a`/`--all` is passed. Must already
+  exist under `projects/` and contain a `.jafa` file.
+- `-a, --all` — pull assets for every project under `projects/` instead of a
+  single named one.
+- `target-directory` — workspace root. Defaults to the current directory
+  (`.`).
+
+Requires `asset-updater.luau` at the workspace root (created by
+[`jafa init`](./init.mdx)) and a Roblox auth cookie available locally (the
+script calls `roblox.getAuthCookie()`, so you generally need to be logged
+into Roblox Studio on the machine running this).
+
+## What it does
+
+Runs `lune run asset-updater.luau <project-name>` from the workspace root.
+For each place listed in the project's `.jafa` file, the script:
+
+1. Fetches the published place file from Roblox using your local auth
+   cookie.
+2. Walks the place's `assets` map, resolving each Roblox instance path (for
+   example `Workspace.Terrain`) against the fetched place.
+3. Serializes each matched instance and writes it to the corresponding
+   `project://`-relative path in the project directory (for example
+   `project://assets/Terrain.rbxm` → `projects/<project-name>/assets/Terrain.rbxm`),
+   creating folders as needed.
+
+A place with `place_id: 0` (unpublished) is skipped. If an individual asset
+path can't be resolved in the fetched place, that entry is skipped with a
+warning instead of stopping the rest of the run.
+
+With `-a`/`--all`, this runs for every project directory found under
+`projects/`. If one project fails to pull, the rest still run — failures are
+reported together at the end.
+
+## The `.jafa` file
+
+Every project scaffolded by [`jafa new`](./new.mdx) includes a `.jafa` file
+at its root, describing which published places to pull from and how their
+instances map to files:
+
+```json
+{
+  "places": [
+    {
+      "place_id": 0,
+      "universe_id": 0,
+      "assets": {
+        "Workspace": {
+          "Terrain": "project://assets/Terrain.rbxm",
+          "Map": "project://assets/Map.rbxm"
+        },
+        "Lighting": "project://assets/Lighting.rbxm"
+      }
+    }
+  ]
+}
+```
+
+Set `place_id`/`universe_id` to the published place you want to pull from,
+and edit `assets` to map Roblox instance paths to output files. `project://`
+resolves relative to the project's own directory. See
+[Project structure](../concepts/project-structure.mdx) for where `.jafa`
+sits alongside the rest of a project.
+
+## Examples
+
+```sh
+jafa pull my-experience
+jafa pull --all
+```

@@ -10,8 +10,8 @@ sidebar_position: 6
 
 Every command rejects flags it doesn't recognize. Check the command's
 [CLI Reference](./cli/init.mdx) page for the exact flags it accepts —
-`-a`/`--all` is only supported by `build`, `open`, `deploy`, and `sourcemap`,
-for example, not `serve` or `dev`.
+`-a`/`--all` is only supported by `build`, `open`, `deploy`, `sourcemap`, and
+`pull`, for example, not `serve` or `dev`.
 
 ### `"<name>" doesn't exist in ".../projects"`
 
@@ -20,12 +20,12 @@ The project name you passed doesn't have a matching folder under
 you're pointing at the right `target-directory`.
 
 :::note
-For `build`, `serve`, and `sourcemap`, this specific error is logged but
-**does not fail the command** — the process still exits with code `0`. For
-`open` and `deploy`, the same situation *does* throw and exits non-zero. If
-you're scripting around `jafa` (CI, git hooks), don't rely on the exit code
-of `build`/`serve`/`sourcemap` alone to detect a missing project; check the
-logged output too.
+For `build`, `serve`, `sourcemap`, and `pull`, this specific error is logged
+but **does not fail the command** — the process still exits with code `0`.
+For `open` and `deploy`, the same situation *does* throw and exits non-zero.
+If you're scripting around `jafa` (CI, git hooks), don't rely on the exit
+code of `build`/`serve`/`sourcemap`/`pull` alone to detect a missing
+project; check the logged output too.
 :::
 
 ### `"<name>" doesn't exist in ".../artifacts"` (from `jafa open`)
@@ -41,12 +41,23 @@ personal account instead of a group.
 
 ### A command fails with the underlying tool's own error text
 
-`jafa build`, `serve`, `sourcemap`, and `deploy` all shell out to `rojo` or
-`mantle` and treat **anything written to stderr as a failure**, regardless
-of the tool's own exit code. If one of these commands reports an error but
-the build output or deployment otherwise looks correct, check whether the
-wrapped tool (Rojo/Mantle) printed a warning to stderr — Jafa currently
-can't distinguish a warning from a real failure here.
+`jafa build`, `serve`, `sourcemap`, `deploy`, and `pull` all shell out to
+`rojo`, `mantle`, or `lune` and treat **anything written to stderr as a
+failure**, regardless of the tool's own exit code. If one of these commands
+reports an error but the build output or deployment otherwise looks
+correct, check whether the wrapped tool (Rojo/Mantle/Lune) printed a warning
+to stderr — Jafa currently can't distinguish a warning from a real failure
+here. This is particularly easy to hit with `jafa pull`, since
+`asset-updater.luau` uses `warn()` for skipped assets or places, which Lune
+writes to stderr.
+
+### `"asset-updater.luau" doesn't exist in "..."` (from `jafa pull`)
+
+`jafa pull` requires `asset-updater.luau` at the workspace root — it's
+copied in by `jafa init`. If it's missing (for example because you deleted
+it, or the workspace predates `jafa pull`), copy it back from a fresh
+`jafa init` scaffold, or check you're pointing `target-directory` at the
+right workspace root.
 
 ### Your operating system is not supported (from `jafa open`)
 
@@ -91,6 +102,12 @@ Yes. `jafa deploy` only manages `owner`, `payments`, the place file, the
 place name, and `environments` — see [`jafa deploy`](./cli/deploy.mdx) for
 exactly which fields it touches. Anything else (badges, social links, avatar
 configuration, remote state) is left alone once written.
+
+**Why did `jafa pull` fail with "Failed to get roblox auth cookie"?**
+`jafa pull` runs a Lune script that calls `roblox.getAuthCookie()` to
+authenticate with Roblox, which reads the cookie Roblox Studio stores
+locally. Make sure you're logged into Roblox Studio on the machine running
+`jafa pull`.
 
 **Something's not covered here — where do I ask?**
 File an issue on [GitHub](https://github.com/blaadam/jafa).

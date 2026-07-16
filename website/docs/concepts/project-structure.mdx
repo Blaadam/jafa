@@ -13,14 +13,17 @@ Each project is scaffolded with:
 
 ```
 projects/<project-name>/
+├── .jafa
 ├── client/
 │   ├── services/
 │   ├── controllers/
 │   ├── modules/
+│   ├── databases/
 │   └── ClientMain.client.luau
 ├── server/
 │   ├── services/
 │   ├── modules/
+│   ├── databases/
 │   └── ServerMain.server.luau
 ├── shared/
 │   ├── databases/
@@ -51,6 +54,16 @@ model:
   `ServerMain`
 - `Workspace` — a baseplate `Part`, with `FilteringEnabled` and
   `StreamingEnabled` on by default
+
+`client/databases` and `server/databases` are scaffolded but not wired into
+the Rojo tree yet — only `shared/databases` is currently mapped in.
+
+## Asset manifest (`.jafa`)
+
+Every project also gets a `.jafa` file at its root, mapping instances in a
+published Roblox place (terrain, maps, lighting, etc.) to files under the
+project directory. [`jafa pull`](../cli/pull.mdx) reads it to pull those
+assets down from Roblox — see that page for the file format.
 
 ## Where build output goes
 

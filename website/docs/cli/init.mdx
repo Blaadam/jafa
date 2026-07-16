@@ -16,8 +16,10 @@ jafa init [target-directory]
 ## What it does
 
 1. Copies the workspace scaffolding (`rokit.toml`, `wally/wally.toml`,
-   `jafa.code-workspace`, `.gitignore`, `.vscode/`, `README.md`) into the
-   target directory.
+   `jafa.code-workspace`, `.gitignore`, `.vscode/`, `README.md`,
+   `asset-updater.luau`) into the target directory. `asset-updater.luau` is
+   the Lune script [`jafa pull`](./pull.mdx) runs to pull published Roblox
+   assets into a project.
 2. Initializes a git repository, unless one already exists.
 3. Runs `rokit install` to install Rojo, Wally, StyLua, Lune, Mantle, Selene,
    and wally-package-types.
