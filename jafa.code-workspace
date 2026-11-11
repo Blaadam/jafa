@@ -5,6 +5,10 @@
       "path": "."
     },
     {
+      "name": "Tool",
+      "path": "tool"
+    },
+    {
       "name": "Jafa",
       "path": "src"
     },
