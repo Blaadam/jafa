@@ -2,6 +2,9 @@ use anyhow::{Result, bail};
 use std::io::ErrorKind;
 use std::path::Path;
 use std::process::Command;
+use std::sync::atomic::{AtomicBool, Ordering};
+
+static INTERRUPTED: AtomicBool = AtomicBool::new(false);
 
 pub fn command(program: &str, cwd: &Path) -> Command {
     let mut cmd = Command::new(program);
@@ -24,9 +27,13 @@ pub fn run(cmd: &mut Command) -> Result<String> {
 
 pub fn run_inherit(cmd: &mut Command) -> Result<()> {
     let program = cmd.get_program().to_string_lossy().into_owned();
+
+    // jafa has to outlive Ctrl+C so it can wait for the child to stop
+    let _ = ctrlc::set_handler(|| INTERRUPTED.store(true, Ordering::SeqCst));
+
     let status = cmd.status().map_err(|err| spawn_error(&program, err))?;
 
-    if !status.success() {
+    if !status.success() && !INTERRUPTED.load(Ordering::SeqCst) {
         bail!("`{program}` failed ({status})");
     }
 
