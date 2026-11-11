@@ -61,3 +61,11 @@ tool/
 7. New features: `init` "common" setting, custom deployments (decide the config shape first)
 8. Cutover (remove mono's src, update `package.json` and the website install docs)
 9. Distribution without npm (GitHub Releases, `cargo install`, maybe Rokit)
+
+# To Do
+
+* Remove unused dependencies (`fs_extra`) and the `#![allow(dead_code)]` in `main.rs`, along with whatever it hides (`log::trace`, `Level::Trace`)
+* Fully set up `Cargo.toml` (description, license, repository, readme, keywords, categories, `rust-version`)
+* Remove / rename a project (keep `.jafa-workspace` and `jafa.code-workspace` in sync, like `new` does)
+* Move `scaffolding/` inside `tool/` so the crate is self-contained and `cargo publish` works (update `include_dir!` and `build.rs`)
+* Prepare for a production release build (`[profile.release]` with `lto`/`strip`/`codegen-units`, release binaries for Windows, macOS and Linux, CI)

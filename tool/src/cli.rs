@@ -34,7 +34,7 @@ pub struct DeployArgs {
     pub environment: String,
 
     #[arg(short, long = "groupid")]
-    pub group_id: Option<String>,
+    pub group_id: Option<u64>,
 
     #[arg(short, long)]
     pub payments: Option<String>,
@@ -70,4 +70,24 @@ pub enum Command {
     Dev(SingleArgs),
     Deploy(DeployArgs),
     Pull(ProjectArgs),
+    NewUniverse {
+        name: String,
+
+        projects: Vec<String>,
+
+        #[arg(short, long, default_value = "dev")]
+        environment: String,
+
+        #[arg(short, long, default_value = ".")]
+        target: String,
+    },
+    DeployUniverse {
+        name: String,
+
+        #[arg(short, long, default_value = "dev")]
+        environment: String,
+
+        #[arg(short, long, default_value = ".")]
+        target: String,
+    },
 }

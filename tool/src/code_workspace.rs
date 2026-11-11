@@ -45,7 +45,7 @@ fn edit(root: &Path, change: impl FnOnce(&str) -> Result<Option<String>>) -> Res
 }
 
 /// `project-name` -> `Project-Name`
-fn display_name(name: &str) -> String {
+pub fn display_name(name: &str) -> String {
     name.split('-')
         .map(|part| {
             let (first, rest) = part.split_at(part.len().min(1));
