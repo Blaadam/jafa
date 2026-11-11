@@ -123,7 +123,6 @@ Full docs, including per-command reference and workspace/project concepts, are a
 - [x] `new-universe` / `deploy-universe` — deploy several projects as one experience
 - [x] `sourcemap` — generate a sourcemap for a project
 - [x] `pull` — pull published Roblox assets into a project
-- [ ] Remove or rename a project
 
 ## Development
 
