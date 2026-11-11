@@ -48,6 +48,9 @@ pub enum Command {
     Init {
         #[arg(default_value = ".")]
         target: String,
+
+        #[arg(short, long)]
+        yes: bool,
     },
     New {
         name: String,
