@@ -18,7 +18,7 @@
     },
     {
       "name": "Scaffolding",
-      "path": "scaffolding"
+      "path": "tool/scaffolding"
     }
   ],
   "settings": {

@@ -3,7 +3,7 @@ use include_dir::{Dir, include_dir};
 use std::fs;
 use std::path::Path;
 
-static SCAFFOLDING: Dir = include_dir!("$CARGO_MANIFEST_DIR/../scaffolding");
+static SCAFFOLDING: Dir = include_dir!("$CARGO_MANIFEST_DIR/scaffolding");
 
 pub fn copy_project(dest: &Path) -> Result<()> {
     copy_dir("project", dest)
