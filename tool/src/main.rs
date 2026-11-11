@@ -2,6 +2,7 @@
 #![allow(dead_code)]
 
 mod cli;
+mod commands;
 mod exec;
 mod log;
 mod project;
@@ -12,10 +13,10 @@ use cli::{Cli, Command};
 
 fn run(cli: Cli) -> Result<()> {
     match cli.command {
+        Command::Build(args) => commands::build::run(&args),
+        Command::Sourcemap(args) => commands::sourcemap::run(&args),
         Command::Init { .. }
         | Command::New { .. }
-        | Command::Build(_)
-        | Command::Sourcemap(_)
         | Command::Serve(_)
         | Command::Open(_)
         | Command::Dev(_)
