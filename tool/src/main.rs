@@ -18,9 +18,9 @@ fn run(cli: Cli) -> Result<()> {
         Command::Pull(args) => commands::pull::run(&args),
         Command::Serve(args) => commands::serve::run(&args),
         Command::Sourcemap(args) => commands::sourcemap::run(&args),
+        Command::Dev(args) => commands::dev::run(&args),
         Command::Init { .. }
         | Command::New { .. }
-        | Command::Dev(_)
         | Command::Deploy(_) => bail!("this command hasn't been rebuilt in Rust yet"),
     }
 }
