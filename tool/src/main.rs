@@ -1,6 +1,3 @@
-// TODO: remove once the commands use the helpers
-#![allow(dead_code)]
-
 mod cli;
 mod code_workspace;
 mod commands;

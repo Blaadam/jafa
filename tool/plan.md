@@ -37,7 +37,6 @@ tool/
 * `anyhow` for error handling
 * `serde`, `serde_json` to handle workspace files and project structuring
 * `serde_yaml_ng` to handle mantle yaml's
-* `fs_extra` to replace `shell.cp -R`
 * `owo-colors` to replace `chalk` in the logger
 * `include_dir` to embed `/scaffolding/` into the binary, so `jafa` is a single file with no Node.js or extra folders needed
 
@@ -64,8 +63,6 @@ tool/
 
 # To Do
 
-* Remove unused dependencies (`fs_extra`) and the `#![allow(dead_code)]` in `main.rs`, along with whatever it hides (`log::trace`, `Level::Trace`)
-* Fully set up `Cargo.toml` (description, license, repository, readme, keywords, categories, `rust-version`)
 * Remove / rename a project (keep `.jafa-workspace` and `jafa.code-workspace` in sync, like `new` does)
 * Move `scaffolding/` inside `tool/` so the crate is self-contained and `cargo publish` works (update `include_dir!` and `build.rs`)
 * Prepare for a production release build (`[profile.release]` with `lto`/`strip`/`codegen-units`, release binaries for Windows, macOS and Linux, CI)

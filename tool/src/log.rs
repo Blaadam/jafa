@@ -4,7 +4,6 @@ use std::fmt::Display;
 #[derive(Clone, Copy, PartialEq, PartialOrd)]
 enum Level {
     Verbose,
-    Trace,
     Info,
     Warn,
     Error,
@@ -34,10 +33,6 @@ fn write(level: Level, label: impl Display, message: impl Display) {
 
 pub fn verbose(message: impl Display) {
     write(Level::Verbose, "verbose".magenta(), message);
-}
-
-pub fn trace(message: impl Display) {
-    write(Level::Trace, "trace".blue(), message);
 }
 
 pub fn info(message: impl Display) {
