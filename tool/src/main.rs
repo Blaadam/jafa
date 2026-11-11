@@ -14,14 +14,14 @@ use cli::{Cli, Command};
 fn run(cli: Cli) -> Result<()> {
     match cli.command {
         Command::Build(args) => commands::build::run(&args),
+        Command::Pull(args) => commands::pull::run(&args),
+        Command::Serve(args) => commands::serve::run(&args),
         Command::Sourcemap(args) => commands::sourcemap::run(&args),
         Command::Init { .. }
         | Command::New { .. }
-        | Command::Serve(_)
         | Command::Open(_)
         | Command::Dev(_)
-        | Command::Deploy(_)
-        | Command::Pull(_) => bail!("this command hasn't been rebuilt in Rust yet"),
+        | Command::Deploy(_) => bail!("this command hasn't been rebuilt in Rust yet"),
     }
 }
 
