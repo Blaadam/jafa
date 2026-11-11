@@ -8,6 +8,19 @@ pub fn workspace_root(target: &str) -> Result<PathBuf> {
     Ok(std::env::current_dir()?.join(target))
 }
 
+pub fn validate_name(name: &str) -> Result<()> {
+    let valid = !name.is_empty()
+        && name
+            .chars()
+            .all(|c| c.is_ascii_alphanumeric() || c == '-' || c == '_');
+
+    if !valid {
+        bail!("\"{name}\" isn't a valid project name. Use letters, numbers, - and _ only.");
+    }
+
+    Ok(())
+}
+
 pub fn projects_dir(root: &Path) -> PathBuf {
     root.join("projects")
 }

@@ -2,6 +2,7 @@
 #![allow(dead_code)]
 
 mod cli;
+mod code_workspace;
 mod commands;
 mod exec;
 mod log;
@@ -17,7 +18,9 @@ use cli::{Cli, Command};
 fn run(cli: Cli) -> Result<()> {
     match cli.command {
         Command::Build(args) => commands::build::run(&args),
-        Command::Init { target, yes, common } => commands::init::run(&target, yes, common),
+        Command::Init { target, yes, common, name } => {
+            commands::init::run(&target, yes, common, name)
+        }
         Command::New { name, target } => commands::new::run(&name, &target),
         Command::Open(args) => commands::start::run(&args),
         Command::Pull(args) => commands::pull::run(&args),

@@ -2,9 +2,10 @@ use anyhow::{Context, Result, bail};
 use std::fs;
 use std::path::{Path, PathBuf};
 
-use crate::{log, project, scaffold, workspace_file};
+use crate::{code_workspace, log, project, scaffold, workspace_file};
 
 pub fn run(name: &str, target: &str) -> Result<()> {
+    project::validate_name(name)?;
     let root = project::workspace_root(target)?;
     create_project(&root, name, true)?;
     Ok(())
@@ -48,6 +49,8 @@ pub fn create_project(root: &Path, name: &str, check_exists: bool) -> Result<Pat
         scaffold::apply_overlay("uses-common", &dest)?;
     }
 
+    set_project_name(&dest, name)?;
+
     log::info(format!("Creating sub-folders for {name}..."));
     let struct_file = dest.join("struct.json");
     let structure = serde_json::from_str(&fs::read_to_string(&struct_file)?)
@@ -57,10 +60,28 @@ pub fn create_project(root: &Path, name: &str, check_exists: bool) -> Result<Pat
 
     workspace_file::add_project(root, name)?;
 
+    // the project is made by now, so a problem with this file shouldn't fail the command
+    if let Err(err) = code_workspace::add_project(root, name) {
+        log::warn(format!("Couldn't add \"{name}\" to jafa.code-workspace: {err:#}"));
+    }
+
     log::info(format!(
         "Project \"{name}\" created successfully at \"{}\".",
         dest.display()
     ));
 
     Ok(dest)
+}
+
+// the scaffolding calls every project "project-name", which Rojo shows as the project's name
+fn set_project_name(dest: &Path, name: &str) -> Result<()> {
+    let file = dest.join("default.project.json");
+    let text = fs::read_to_string(&file)?;
+    let updated = text.replacen("\"name\": \"project-name\"", &format!("\"name\": \"{name}\""), 1);
+
+    if updated != text {
+        fs::write(&file, updated)?;
+    }
+
+    Ok(())
 }

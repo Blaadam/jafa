@@ -54,6 +54,9 @@ pub enum Command {
 
         #[arg(long)]
         common: bool,
+
+        #[arg(short, long)]
+        name: Option<String>,
     },
     New {
         name: String,
