@@ -1,0 +1,93 @@
+{
+  "name": "common",
+  "globIgnorePaths": [
+    "**/*.spec.lua"
+  ],
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "Shared": {
+        "$className": "Folder",
+        "Facilitators": {
+          "$className": "Folder",
+          "common": {
+            "$path": "./shared/facilitators"
+          }
+        },
+        "Modules": {
+          "$className": "Folder",
+          "common": {
+            "$path": "./shared/modules"
+          }
+        },
+        "Databases": {
+          "$className": "Folder",
+          "common": {
+            "$path": "./shared/databases"
+          }
+        },
+        "Packages": {
+          "$path": "../../wally/Packages"
+        }
+      },
+      "Client": {
+        "$className": "Folder",
+        "Services": {
+          "$className": "Folder",
+          "common": {
+            "$path": "./client/services"
+          }
+        },
+        "Controllers": {
+          "$className": "Folder",
+          "common": {
+            "$path": "./client/controllers"
+          }
+        },
+        "Modules": {
+          "$className": "Folder",
+          "common": {
+            "$path": "./client/modules"
+          }
+        },
+        "Databases": {
+          "$className": "Folder",
+          "common": {
+            "$path": "./client/databases"
+          }
+        }
+      },
+      "UI": {
+        "$className": "Folder",
+        "common": {
+          "$path": "./ui"
+        }
+      },
+      "LogConfig": {
+        "$path": "./shared/LogConfig.luau"
+      }
+    },
+    "ReplicatedFirst": {
+      "$className": "ReplicatedFirst",
+      "common": {
+        "$path": "./preload"
+      }
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "Services": {
+        "$className": "Folder",
+        "common": {
+          "$path": "./server/services"
+        }
+      },
+      "Modules": {
+        "$className": "Folder",
+        "common": {
+          "$path": "./server/modules"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <g stroke="currentColor" stroke-width="5" stroke-linecap="round" opacity="0.55">
+    <path d="M100 56V82"/>
+    <path d="M32 82H168"/>
+    <path d="M32 82V108"/>
+    <path d="M77 82V108"/>
+    <path d="M123 82V108"/>
+    <path d="M168 82V108"/>
+  </g>
+  <rect x="62" y="22" width="76" height="34" rx="10" fill="#df6f02"/>
+  <rect x="78" y="35" width="44" height="8" rx="4" fill="#fff" opacity="0.9"/>
+  <g>
+    <rect x="12" y="108" width="40" height="34" rx="9" fill="#f67a02"/>
+    <rect x="57" y="108" width="40" height="34" rx="9" fill="#fd9127"/>
+    <rect x="103" y="108" width="40" height="34" rx="9" fill="#f67a02"/>
+    <rect x="148" y="108" width="40" height="34" rx="9" fill="#fd9127"/>
+  </g>
+  <g fill="#fff" opacity="0.9">
+    <rect x="20" y="121" width="24" height="7" rx="3.5"/>
+    <rect x="65" y="121" width="24" height="7" rx="3.5"/>
+    <rect x="111" y="121" width="24" height="7" rx="3.5"/>
+    <rect x="156" y="121" width="24" height="7" rx="3.5"/>
+  </g>
+  <g stroke="currentColor" stroke-width="5" stroke-linecap="round" opacity="0.3">
+    <path d="M32 142V160"/>
+    <path d="M77 142V160"/>
+    <path d="M123 142V160"/>
+    <path d="M168 142V160"/>
+  </g>
+  <g fill="currentColor" opacity="0.18">
+    <rect x="14" y="160" width="36" height="14" rx="6"/>
+    <rect x="59" y="160" width="36" height="14" rx="6"/>
+    <rect x="105" y="160" width="36" height="14" rx="6"/>
+    <rect x="150" y="160" width="36" height="14" rx="6"/>
+  </g>
+</svg>

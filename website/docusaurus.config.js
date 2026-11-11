@@ -12,7 +12,6 @@ import { themes as prismThemes } from "prism-react-renderer";
 const config = {
 	title: "Jafa",
 	tagline: "A CLI tool making Roblox repositories – simpler",
-	// favicon: "img/favicon.ico",
 	favicon: "img/jafa_logo.svg",
 
 	// Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -59,8 +58,7 @@ const config = {
 	themeConfig:
 		/** @type {import('@docusaurus/preset-classic').ThemeConfig} */
 		({
-			// Replace with your project's social card
-			image: "img/docusaurus-social-card.jpg",
+			image: "img/jafa-social-card.png",
 			colorMode: {
 				respectPrefersColorScheme: true,
 			},

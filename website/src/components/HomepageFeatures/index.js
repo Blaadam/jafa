@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 const FeatureList = [
   {
     title: 'One Workspace, Many Experiences',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    Svg: require('@site/static/img/jafa_workspace.svg').default,
     description: (
       <>
         <code>jafa init</code> scaffolds a shared Rojo/Wally/Rokit workspace
@@ -16,7 +16,7 @@ const FeatureList = [
   },
   {
     title: 'Consistent Project Structure',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    Svg: require('@site/static/img/jafa_structure.svg').default,
     description: (
       <>
         Every project gets the same <code>client</code>/<code>server</code>/
@@ -27,7 +27,7 @@ const FeatureList = [
   },
   {
     title: 'Build, Open, Serve — One Command',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    Svg: require('@site/static/img/jafa_terminal.svg').default,
     description: (
       <>
         <code>jafa dev</code> builds a project, opens it in Roblox Studio, and

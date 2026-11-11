@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tool/**"
+      - ".github/workflows/ci.yml"
+  pull_request:
+    paths:
+      - "tool/**"
+      - ".github/workflows/ci.yml"
+
+jobs:
+  test:
+    name: Test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    defaults:
+      run:
+        working-directory: tool
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: tool
+
+      - run: cargo clippy --all-targets --locked -- -D warnings
+
+      - run: cargo test --locked

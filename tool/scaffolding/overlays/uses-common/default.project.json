@@ -1,0 +1,126 @@
+{
+  "name": "project-name",
+  "globIgnorePaths": [
+    "**/*.spec.lua"
+  ],
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "Shared": {
+        "$className": "Folder",
+        "Facilitators": {
+          "$path": "./shared/facilitators",
+          "common": {
+            "$path": "../common/shared/facilitators"
+          }
+        },
+        "Modules": {
+          "$path": "./shared/modules",
+          "common": {
+            "$path": "../common/shared/modules"
+          }
+        },
+        "Databases": {
+          "$path": "./shared/databases",
+          "common": {
+            "$path": "../common/shared/databases"
+          }
+        },
+        "Packages": {
+          "$path": "../../wally/Packages"
+        }
+      },
+      "Client": {
+        "$className": "Folder",
+        "Services": {
+          "$path": "./client/services",
+          "common": {
+            "$path": "../common/client/services"
+          }
+        },
+        "Controllers": {
+          "$path": "./client/controllers",
+          "common": {
+            "$path": "../common/client/controllers"
+          }
+        },
+        "Modules": {
+          "$path": "./client/modules",
+          "common": {
+            "$path": "../common/client/modules"
+          }
+        },
+        "Databases": {
+          "$path": "./client/databases",
+          "common": {
+            "$path": "../common/client/databases"
+          }
+        },
+        "ClientMain": {
+          "$path": "./client/ClientMain.client.luau"
+        }
+      },
+      "UI": {
+        "$path": "./ui",
+        "common": {
+          "$path": "../common/ui"
+        }
+      },
+      "LogConfig": {
+        "$path": "./shared/LogConfig.luau"
+      }
+    },
+    "ReplicatedFirst": {
+      "$className": "ReplicatedFirst",
+      "common": {
+        "$path": "../common/preload"
+      }
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "Services": {
+        "$path": "./server/services",
+        "common": {
+          "$path": "../common/server/services"
+        }
+      },
+      "Modules": {
+        "$path": "./server/modules",
+        "common": {
+          "$path": "../common/server/modules"
+        }
+      },
+      "ServerMain": {
+        "$path": "./server/ServerMain.server.luau"
+      }
+    },
+    "Workspace": {
+      "$className": "Workspace",
+      "$properties": {
+        "FilteringEnabled": true,
+        "StreamingEnabled": true,
+        "ModelStreamingBehavior": "Improved",
+        "StreamOutBehavior": "Opportunistic"
+      },
+      "Baseplate": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "CanCollide": true,
+          "Material": "Concrete",
+          "Size": [
+            2048,
+            1,
+            2048
+          ],
+          "Position": [
+            0,
+            0.5,
+            0
+          ]
+        }
+      }
+    }
+  }
+}

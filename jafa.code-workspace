@@ -5,8 +5,8 @@
       "path": "."
     },
     {
-      "name": "Jafa",
-      "path": "src"
+      "name": "Tool",
+      "path": "tool"
     },
     {
       "name": "Website",
@@ -14,7 +14,7 @@
     },
     {
       "name": "Scaffolding",
-      "path": "scaffolding"
+      "path": "tool/scaffolding"
     }
   ],
   "settings": {

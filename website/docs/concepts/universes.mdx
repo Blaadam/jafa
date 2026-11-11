@@ -1,0 +1,61 @@
+---
+sidebar_position: 4
+---
+
+# Universes
+
+A Roblox **universe** (an experience) can have several **places**: a lobby, and
+a place for each game mode, for example. Jafa maps this onto a workspace by
+giving each place its own project.
+
+| | [`jafa deploy`](../cli/deploy.mdx) | [`jafa deploy-universe`](../cli/deploy-universe.mdx) |
+|---|---|---|
+| Result | one experience per project | one experience with a place per project |
+| Config | Jafa generates and updates `mantle.yml` | you write `mantle.yml`, Jafa only reads it |
+| Flags | `-g`, `-p`, `-n` set fields for you | none — the file owns everything |
+
+Use `deploy` to put a single project somewhere you can test it on its own.
+Use a universe for the real experience.
+
+## How it's laid out
+
+```
+my-game/
+├── projects/
+│   ├── lobby/
+│   ├── tennis/
+│   └── bowling/
+├── artifacts/
+│   ├── lobby/build.rbxl
+│   ├── tennis/build.rbxl
+│   └── bowling/build.rbxl
+└── universes/
+    └── my-game/
+        └── dev/
+            └── mantle.yml
+```
+
+Each place in `mantle.yml` points at one project's build:
+
+```yaml
+target:
+  experience:
+    places:
+      start:
+        file: ../../../artifacts/lobby/build.rbxl
+        configuration:
+          name: Lobby
+      tennis:
+        file: ../../../artifacts/tennis/build.rbxl
+        configuration:
+          name: Tennis
+```
+
+Each environment has its own folder (`universes/my-game/dev`,
+`universes/my-game/stg`), because Mantle keeps its state file beside the
+config. That keeps `dev` and `prod` from sharing state.
+
+Create the file with [`jafa new-universe`](../cli/new-universe.mdx), then edit it
+to add your owner, badges, icons and the rest of Mantle's options. Deploy with
+[`jafa deploy-universe`](../cli/deploy-universe.mdx), which builds every
+project the places use first.

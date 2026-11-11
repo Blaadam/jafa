@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <rect x="14" y="34" width="172" height="132" rx="16" fill="#1f1a16"/>
+  <rect x="14" y="34" width="172" height="28" rx="16" fill="#2b241e"/>
+  <rect x="14" y="48" width="172" height="14" fill="#2b241e"/>
+  <circle cx="34" cy="48" r="5" fill="#df6f02"/>
+  <circle cx="52" cy="48" r="5" fill="#fd9127" opacity="0.7"/>
+  <circle cx="70" cy="48" r="5" fill="#fff" opacity="0.3"/>
+  <text x="30" y="92" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="17" font-weight="700" fill="#fd9127">$</text>
+  <text x="46" y="92" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="17" font-weight="700" fill="#fff">jafa dev</text>
+  <g stroke-linecap="round" stroke-width="5">
+    <path d="M32 114H92" stroke="#df6f02"/>
+    <path d="M32 130H120" stroke="#fff" opacity="0.35"/>
+    <path d="M32 146H76" stroke="#fff" opacity="0.35"/>
+  </g>
+  <path d="M126 106L146 120L126 134" stroke="#fd9127" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="152" y="112" width="12" height="16" rx="2" fill="#df6f02"/>
+</svg>

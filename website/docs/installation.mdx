@@ -4,39 +4,39 @@ sidebar_position: 2
 
 # Installation
 
-Jafa is a Node.js CLI, published as `@blaadam/jafa`.
+Jafa is a single binary written in Rust. It doesn't need Node.js or any other
+runtime.
 
 ## Requirements
 
-- Node.js 20 or above
 - [Rokit](https://github.com/rojo-rbx/rokit) available on your `PATH` (Jafa
   runs `rokit install` for you during `jafa init`, but Rokit itself must
   already be installed)
 - Git
 
-## Install from npm
+## Install with Cargo
+
+With [Rust](https://www.rust-lang.org/tools/install) installed:
 
 ```sh
-npm install -g @blaadam/jafa
+cargo install --git https://github.com/blaadam/jafa jafa
 ```
 
+This builds the latest `jafa` and puts it in Cargo's `bin` folder, which is
+normally already on your `PATH`.
+
 :::note
-Until the package is published to npm, build and link it locally instead — see
-below.
+Prebuilt binaries for Windows, macOS, and Linux are coming. Until then, use
+Cargo.
 :::
 
 ## Install from source
 
 ```sh
 git clone https://github.com/blaadam/jafa.git
-cd jafa
-npm install
-npm run build
-npm link
+cd jafa/tool
+cargo install --path .
 ```
-
-`npm run build` compiles TypeScript from `src/` to `dist/`, which is what the
-`jafa` bin points to. `npm link` makes the `jafa` command available globally.
 
 ## Verify
 
