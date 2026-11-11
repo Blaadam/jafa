@@ -14,11 +14,18 @@ jafa init my-game
 cd my-game
 ```
 
-`init` scaffolds `rokit.toml` and `wally/wally.toml`, initializes git,
-installs tools via `rokit install`, and creates a starter project for you
-(which is where `default.project.json`, `selene.toml`, and `stylua.toml` come
-from). See [Workspaces](./concepts/workspace.mdx) for what's actually
-created.
+`init` asks what the first project should be called, then asks whether to run
+`git init`, `rokit install`, and `wally install`, and whether to create a
+shared `common` project. It scaffolds `rokit.toml` and `wally/wally.toml`,
+runs the tools you agreed to, and creates your first project (which is where
+`default.project.json`, `selene.toml`, and `stylua.toml` come from). See
+[Workspaces](./concepts/workspace.mdx) for what's actually created.
+
+To skip the questions, pass `--yes` and a name:
+
+```sh
+jafa init my-game --yes --name lobby
+```
 
 ## 2. Add a project
 
@@ -27,7 +34,8 @@ jafa new my-experience
 ```
 
 This adds `projects/my-experience`, scaffolded with the standard
-`client`/`server`/`shared`/`ui` folder structure. See
+`client`/`server`/`shared`/`ui` folder structure, and adds it to
+`jafa.code-workspace` so it shows up in VS Code. See
 [Project structure](./concepts/project-structure.mdx) for a full breakdown.
 
 ## 3. Build, open, and serve
@@ -42,3 +50,19 @@ jafa dev my-experience
 Roblox Studio, then starts `rojo serve` so Studio can sync live changes.
 
 You can also run each step individually — see the [CLI Reference](./cli/init.mdx).
+
+## 4. Deploy
+
+Deploy a single project as its own experience:
+
+```sh
+jafa deploy my-experience -g 123456
+```
+
+Or deploy several projects as places in one experience, with
+[universes](./concepts/universes.mdx):
+
+```sh
+jafa new-universe my-game
+jafa deploy-universe my-game
+```

@@ -11,7 +11,7 @@ jafa new <project-name> [target-directory]
 ```
 
 - `project-name` — required. Name of the project, and the folder created
-  under `projects/`.
+  under `projects/`. Use letters, numbers, `-` and `_` only.
 - `target-directory` — workspace root to create the project in. Defaults to
   the current directory (`.`).
 
@@ -22,6 +22,15 @@ Adds `projects/<project-name>`, scaffolded with the standard
 wired up to `ReplicatedStorage`, `ServerScriptService`, and `Workspace`. See
 [Project structure](../concepts/project-structure.mdx) for the full layout.
 
+It also:
+
+- adds the project to `.vscode/.jafa-workspace`, and to the `folders` list in
+  `jafa.code-workspace` (next to the other projects) so it appears in VS Code.
+  Comments and formatting in that file are kept.
+- links the project to the shared `common` project, if the workspace has one.
+  Creating a project named `common` sets it up as the shared project instead —
+  see [the common project](../concepts/project-structure.mdx#the-common-project).
+
 Fails if `target-directory` isn't a Jafa workspace (no `projects/` folder), or
 if a project with the same name already exists.
 
@@ -30,4 +39,5 @@ if a project with the same name already exists.
 ```sh
 jafa new my-experience
 jafa new my-experience ./my-game
+jafa new common
 ```

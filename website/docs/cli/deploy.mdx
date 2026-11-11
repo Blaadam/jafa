@@ -22,11 +22,15 @@ jafa deploy -a|--all [target-directory] [-e|--environment <env>] [-g|--groupid <
 - `-e, --environment` — the Mantle environment to deploy (matches
   `environments.*.label` in `mantle.yml`). Defaults to `dev`.
 - `-g, --groupid` — numeric Roblox group ID. Sets `owner.group` in
-  `mantle.yml`. Omit to deploy under your personal account.
+  `mantle.yml`. Omit to deploy under your personal account (Jafa warns when
+  no group is set).
 - `-p, --payments` — sets the `payments` field in `mantle.yml` (`owner`,
   `personal`, or `group`).
 - `-n, --name` — sets the deployed place's
   `target.experience.places.start.configuration.name`.
+
+To deploy several projects as places in one experience instead, see
+[`jafa deploy-universe`](./deploy-universe.mdx).
 
 Mantle itself must already be authenticated with Roblox — see Mantle's
 [Authentication](https://mantledeploy.vercel.app/docs/authentication) docs.
@@ -38,8 +42,8 @@ Mantle itself must already be authenticated with Roblox — see Mantle's
    `artifacts/<project-name>/build.rbxl`.
 2. Creates (or updates) `artifacts/<project-name>/<environment>/mantle.yml`:
    - Points `target.experience.places.start.file` at the build output.
-   - Sets `owner.group` when `--groupid` is passed (errors if it isn't
-     numeric).
+   - Sets `owner.group` when `--groupid` is passed (anything that isn't a
+     number is rejected).
    - Sets `payments` when `--payments` is passed.
    - Sets the place's `configuration.name` when `--name` is passed.
    - Ensures an `environments` entry exists for `--environment`, defaulting
@@ -48,7 +52,7 @@ Mantle itself must already be authenticated with Roblox — see Mantle's
      environments (so deployed resources are prefixed `[DEV]`/`[STG]`).
      `prod` (and any other label) is left alone.
 3. Runs `mantle deploy` against that directory with
-   `--environment <environment>`.
+   `--environment <environment>`. Mantle's output streams live as it runs.
 
 Each environment gets its own `mantle.yml` and Mantle state, so `dev`, `stg`,
 and `prod` deployments for the same project don't share state or resources.

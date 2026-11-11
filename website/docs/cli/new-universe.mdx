@@ -1,0 +1,41 @@
+---
+sidebar_position: 8
+---
+
+# jafa new-universe
+
+Create a starter Mantle config for a [universe](../concepts/universes.mdx): one
+experience with a place for each of several projects.
+
+```sh
+jafa new-universe <universe-name> [project-names...] [-e|--environment <env>] [-t|--target <directory>]
+```
+
+- `universe-name` — required. Letters, numbers, `-` and `_` only.
+- `project-names` — the projects to include. Defaults to every project under
+  `projects/` except `common`. The first one becomes the experience's start
+  place.
+- `-e, --environment` — the environment to create the file for. Defaults to
+  `dev`.
+- `-t, --target` — workspace root. Defaults to the current directory (`.`).
+
+## What it does
+
+Writes `universes/<universe-name>/<environment>/mantle.yml` with one place per
+project, each pointing at `artifacts/<project>/build.rbxl`, plus an
+`environments` entry for the environment. The `dev` and `stg` environments get
+`targetNamePrefix: environmentLabel`.
+
+Fails if the file already exists, or if a project you named doesn't exist.
+
+Edit the file afterwards to add an `owner`, badges, icons, descriptions and
+anything else Mantle supports, then deploy it with
+[`jafa deploy-universe`](./deploy-universe.mdx).
+
+## Examples
+
+```sh
+jafa new-universe my-game
+jafa new-universe my-game lobby tennis bowling
+jafa new-universe my-game -e stg
+```

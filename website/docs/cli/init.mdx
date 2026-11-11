@@ -7,32 +7,50 @@ sidebar_position: 1
 Create a new Jafa workspace.
 
 ```sh
-jafa init [target-directory]
+jafa init [target-directory] [-y|--yes] [-n|--name <project-name>] [--common]
 ```
 
 - `target-directory` — where to create the workspace. Defaults to the
   current directory (`.`).
+- `-n, --name` — the name of the first project. Without it, `init` asks.
+- `-y, --yes` — don't ask anything: use the default first project name
+  (`project-name`) and run `git init`, `rokit install`, and `wally install`.
+- `--common` — also create a shared [`common` project](../concepts/project-structure.mdx#the-common-project).
+  `--yes` doesn't turn this on, since it's optional extra structure.
+
+Fails if the target is already a Jafa workspace.
 
 ## What it does
 
-1. Copies the workspace scaffolding (`rokit.toml`, `wally/wally.toml`,
+1. Asks what the first project should be called (skipped with `--name` or
+   `--yes`).
+2. Asks whether to run `git init` (only when there isn't a git repository
+   already), `rokit install`, and `wally install`, and whether to create a
+   `common` project. All of these default to yes except `common`.
+3. Copies the workspace scaffolding (`rokit.toml`, `wally/wally.toml`,
    `jafa.code-workspace`, `.gitignore`, `.vscode/`, `README.md`,
    `asset-updater.luau`) into the target directory. `asset-updater.luau` is
    the Lune script [`jafa pull`](./pull.mdx) runs to pull published Roblox
    assets into a project.
-2. Initializes a git repository, unless one already exists.
-3. Runs `rokit install` to install Rojo, Wally, StyLua, Lune, Mantle, Selene,
-   and wally-package-types.
-4. Runs `wally install --project-path ./wally`.
-5. Creates a starter project inside `projects/` — this is where
-   `default.project.json`, `selene.toml`, and `stylua.toml` come from; see
-   [`jafa new`](./new.mdx).
+4. Runs the tools you agreed to: `git init`, `rokit install` (installs Rojo,
+   Wally, StyLua, Lune, Mantle, Selene, and wally-package-types), and
+   `wally install --project-path ./wally`. If one fails, `init` warns and
+   carries on, so you can run it yourself later.
+5. Creates `common` first if you asked for it, then your first project inside
+   `projects/` — this is where `default.project.json`, `selene.toml`, and
+   `stylua.toml` come from; see [`jafa new`](./new.mdx). The project is also
+   added to `jafa.code-workspace`.
 
 See [Workspaces](../concepts/workspace.mdx) for details on what gets created.
+
+When the command isn't run in a terminal (for example in CI), it uses the
+default answers instead of asking.
 
 ## Examples
 
 ```sh
-jafa init .
+jafa init
 jafa init my-game
+jafa init my-game --name lobby --common
+jafa init my-game --yes --name lobby
 ```
