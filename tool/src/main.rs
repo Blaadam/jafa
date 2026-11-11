@@ -1,13 +1,34 @@
-use clap::Parser;
+// TODO: remove once the commands use the helpers
+#![allow(dead_code)]
 
-#[derive(Parser)]
-struct Cli {
-    pattern: String,
-    path: std::path::PathBuf,
+mod cli;
+mod exec;
+mod log;
+mod project;
+
+use anyhow::{Result, bail};
+use clap::Parser;
+use cli::{Cli, Command};
+
+fn run(cli: Cli) -> Result<()> {
+    match cli.command {
+        Command::Init { .. }
+        | Command::New { .. }
+        | Command::Build(_)
+        | Command::Sourcemap(_)
+        | Command::Serve(_)
+        | Command::Open(_)
+        | Command::Dev(_)
+        | Command::Deploy(_)
+        | Command::Pull(_) => bail!("this command hasn't been rebuilt in Rust yet"),
+    }
 }
 
 fn main() {
-    let args = Cli::parse();
+    let cli = Cli::parse();
 
-    println!("pattern: {:?}, path: {:?} [parser]", args.pattern, args.path);
+    if let Err(err) = run(cli) {
+        log::error(format!("{err:#}"));
+        std::process::exit(1);
+    }
 }
