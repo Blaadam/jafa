@@ -2,15 +2,15 @@ use anyhow::{Result, bail};
 use std::fs;
 use std::path::Path;
 
-use super::new::create_project;
+use super::new::{COMMON, create_project};
 use crate::{exec, log, project, prompt, scaffold, workspace_file};
 
-pub fn run(target: &str, yes: bool) -> Result<()> {
+pub fn run(target: &str, yes: bool, common: bool) -> Result<()> {
     let root = project::workspace_root(target)?;
-    init_workspace(&root, yes)
+    init_workspace(&root, yes, common)
 }
 
-pub fn init_workspace(root: &Path, yes: bool) -> Result<()> {
+pub fn init_workspace(root: &Path, yes: bool, common: bool) -> Result<()> {
     if workspace_file::path(root).exists() {
         bail!("\"{}\" is already a jafa workspace.", root.display());
     }
@@ -19,6 +19,8 @@ pub fn init_workspace(root: &Path, yes: bool) -> Result<()> {
     let run_git = !root.join(".git").exists() && ask("Run `git init`?");
     let run_rokit = ask("Run `rokit install`?");
     let run_wally = ask("Run `wally install`?");
+    // --yes doesn't opt in to this, since it's optional extra structure
+    let with_common = common || (!yes && prompt::confirm("Create a shared `common` project?", false));
 
     log::info(format!("Initializing jafa in {}", root.display()));
     fs::create_dir_all(root)?;
@@ -58,6 +60,11 @@ pub fn init_workspace(root: &Path, yes: bool) -> Result<()> {
 
     log::info("Creating workspace file...");
     workspace_file::create(root)?;
+
+    if with_common {
+        log::verbose("Creating common project...");
+        create_project(root, COMMON, false)?;
+    }
 
     log::verbose("Creating project...");
     create_project(root, "project-name", false)?;

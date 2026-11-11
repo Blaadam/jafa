@@ -13,6 +13,11 @@ pub fn copy_workspace(dest: &Path) -> Result<()> {
     copy_dir("workspace", dest)
 }
 
+/// Writes over files from the project scaffolding with ones from `overlays/<name>`
+pub fn apply_overlay(name: &str, dest: &Path) -> Result<()> {
+    copy_dir(&format!("overlays/{name}"), dest)
+}
+
 fn copy_dir(name: &str, dest: &Path) -> Result<()> {
     let dir = SCAFFOLDING
         .get_dir(name)

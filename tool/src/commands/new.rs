@@ -10,6 +10,8 @@ pub fn run(name: &str, target: &str) -> Result<()> {
     Ok(())
 }
 
+pub const COMMON: &str = "common";
+
 /// `check_exists` is off when `init` creates the first project, since the workspace is brand new
 pub fn create_project(root: &Path, name: &str, check_exists: bool) -> Result<PathBuf> {
     let projects_dir = project::projects_dir(root);
@@ -34,6 +36,17 @@ pub fn create_project(root: &Path, name: &str, check_exists: bool) -> Result<Pat
     log::info(format!("Creating project \"{name}\"..."));
     fs::create_dir_all(&projects_dir)?;
     scaffold::copy_project(&dest)?;
+
+    if name == COMMON {
+        log::verbose("Setting up as the shared common project...");
+        scaffold::apply_overlay("common", &dest)?;
+        // common only holds shared code, so it has no entry points of its own
+        let _ = fs::remove_file(dest.join("client/ClientMain.client.luau"));
+        let _ = fs::remove_file(dest.join("server/ServerMain.server.luau"));
+    } else if projects_dir.join(COMMON).is_dir() {
+        log::verbose("Linking to the common project...");
+        scaffold::apply_overlay("uses-common", &dest)?;
+    }
 
     log::info(format!("Creating sub-folders for {name}..."));
     let struct_file = dest.join("struct.json");

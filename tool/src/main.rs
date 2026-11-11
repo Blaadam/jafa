@@ -17,7 +17,7 @@ use cli::{Cli, Command};
 fn run(cli: Cli) -> Result<()> {
     match cli.command {
         Command::Build(args) => commands::build::run(&args),
-        Command::Init { target, yes } => commands::init::run(&target, yes),
+        Command::Init { target, yes, common } => commands::init::run(&target, yes, common),
         Command::New { name, target } => commands::new::run(&name, &target),
         Command::Open(args) => commands::start::run(&args),
         Command::Pull(args) => commands::pull::run(&args),
