@@ -37,8 +37,9 @@ pub fn start_project(root: &Path, name: &str) -> Result<()> {
     log::info(format!("Opening build file: {}", build_file.display()));
 
     let mut cmd = if cfg!(target_os = "windows") {
-        let mut cmd = exec::command("cmd", root);
-        cmd.args(["/C", "start", ""]);
+        // not `cmd /C start`, since cmd would read & | ^ % in the path as its own syntax
+        let mut cmd = exec::command("rundll32", root);
+        cmd.arg("url.dll,FileProtocolHandler");
         cmd
     } else if cfg!(target_os = "macos") {
         exec::command("open", root)

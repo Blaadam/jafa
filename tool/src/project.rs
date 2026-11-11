@@ -51,6 +51,14 @@ pub fn list_projects(root: &Path) -> Vec<String> {
         .flatten()
         .filter(|entry| entry.path().is_dir())
         .filter_map(|entry| entry.file_name().into_string().ok())
+        .filter(|name| {
+            // folder names come from the repo, so only pass on ones that are safe to build paths and commands from
+            let valid = validate_name(name).is_ok();
+            if !valid {
+                log::warn(format!("Skipping \"{name}\", project names can only use letters, numbers, - and _."));
+            }
+            valid
+        })
         .collect();
 
     names.sort();
