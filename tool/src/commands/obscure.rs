@@ -3,6 +3,7 @@ use serde_json::json;
 use std::fs;
 use std::path::Path;
 
+use super::sourcemap::sourcemap_project;
 use crate::cli::{ObscureArgs, ObscureLevel};
 use crate::{exec, log, project};
 
@@ -42,7 +43,9 @@ pub fn obscure_project(root: &Path, name: &str, level: ObscureLevel) -> Result<(
     copy_dir(&dir, &src.join("projects").join(name), true)?;
 
     let common_dir = project::projects_dir(root).join("common");
-    let has_common = common_dir.is_dir();
+    // obscuring "common" itself must not also run it through the "common" branch below:
+    // that would stage and darklua-process the exact same directory twice
+    let has_common = name != "common" && common_dir.is_dir();
     if has_common {
         copy_dir(&common_dir, &src.join("projects").join("common"), true)?;
     }
@@ -73,6 +76,12 @@ pub fn obscure_project(root: &Path, name: &str, level: ObscureLevel) -> Result<(
     }
 
     result?;
+
+    // `build_project` regenerates sourcemap.json unconditionally after a successful
+    // build; `obscure` must too, since nothing about the instance tree a sourcemap
+    // describes changes under obfuscation, only the scripts' own contents do
+    sourcemap_project(root, name)?;
+
     match cleanup_err {
         Some(err) => Err(err),
         None => Ok(()),

@@ -1,0 +1,95 @@
+.showcase {
+  padding: 2rem 0 3rem;
+  width: 100%;
+}
+
+.carousel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2rem 0;
+}
+
+/* 3 cards per view on desktop, 2 on tablet, 1 on mobile. */
+.track {
+  --per-view: 3;
+  --gap: 1.5rem;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  gap: var(--gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+/* A lone card or short row stays centred instead of hugging the left. */
+.track > :first-child {
+  margin-left: auto;
+}
+
+.track > :last-child {
+  margin-right: auto;
+}
+
+@media (max-width: 996px) {
+  .track {
+    --per-view: 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .track {
+    --per-view: 1;
+  }
+}
+
+.card {
+  flex: 0 0 calc((100% - (var(--per-view) - 1) * var(--gap)) / var(--per-view));
+  box-sizing: border-box;
+  scroll-snap-align: start;
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-global-radius);
+  background: var(--ifm-card-background-color);
+}
+
+.arrow {
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--ifm-color-primary);
+  background: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 50%;
+}
+
+.arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.logo {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.name {
+  margin-bottom: 0.5rem;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
