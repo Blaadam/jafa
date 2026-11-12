@@ -8,13 +8,17 @@ Build the projects a [universe](../concepts/universes.mdx) uses, then deploy it
 to Roblox with [Mantle](https://mantledeploy.vercel.app/).
 
 ```sh
-jafa deploy-universe <universe-name> [-e|--environment <env>] [-t|--target <directory>]
+jafa deploy-universe <universe-name> [-e|--environment <env>] [-t|--target <directory>] [-l|--level <level>]
 ```
 
 - `universe-name` — required. The universe to deploy.
 - `-e, --environment` — the Mantle environment to deploy (matches
   `environments.*.label` in the `mantle.yml`). Defaults to `dev`.
 - `-t, --target` — workspace root. Defaults to the current directory (`.`).
+- `-l, --level` — build every place's project with
+  [`jafa obscure`](./obscure.mdx) at this level (`minify`, `rename`, or
+  `full`) instead of a plain `jafa build`. Applies to every project the
+  universe uses.
 
 Mantle itself must already be authenticated with Roblox — see Mantle's
 [Authentication](https://mantledeploy.vercel.app/docs/authentication) docs.
@@ -26,8 +30,9 @@ Mantle itself must already be authenticated with Roblox — see Mantle's
    — unless a project has the same name, since that folder then holds the
    project's own generated config.
 2. Reads `target.experience.places` and builds each project whose
-   `artifacts/<project>/build.rbxl` a place points at, once each. Fails if a
-   place's file still doesn't exist afterwards.
+   `artifacts/<project>/build.rbxl` a place points at, once each — with
+   `jafa obscure` instead of a plain build if `--level` was passed. Fails if
+   a place's file still doesn't exist afterwards.
 3. Runs `mantle deploy` on the config with `--environment <environment>` from
    the workspace root, so a `.env` file with your Mantle API key is picked up.
    Mantle's output streams live.
@@ -35,11 +40,13 @@ Mantle itself must already be authenticated with Roblox — see Mantle's
 The config is hand-written, so Jafa **never rewrites it** — your comments and
 settings stay as they are. That also means `deploy-universe` has no `--groupid`,
 `--payments` or `--name` flags: set `owner`, `payments` and place names in the
-file.
+file. `--level` is the one exception — it only controls how the places get
+built, not anything in the config.
 
 ## Examples
 
 ```sh
 jafa deploy-universe my-game
 jafa deploy-universe my-game -e stg
+jafa deploy-universe my-game -e prod --level full
 ```

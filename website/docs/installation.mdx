@@ -14,6 +14,14 @@ runtime.
   already be installed)
 - Git
 
+## Install a prebuilt binary
+
+Download the archive for your platform from the
+[latest release](https://github.com/blaadam/jafa/releases/latest)
+(`x86_64-pc-windows-msvc`, `x86_64-unknown-linux-gnu`,
+`x86_64-apple-darwin`, or `aarch64-apple-darwin`), extract it, and put the
+`jafa` binary somewhere on your `PATH`. No Rust toolchain required.
+
 ## Install with Cargo
 
 With [Rust](https://www.rust-lang.org/tools/install) installed:
@@ -22,13 +30,8 @@ With [Rust](https://www.rust-lang.org/tools/install) installed:
 cargo install --git https://github.com/blaadam/jafa jafa
 ```
 
-This builds the latest `jafa` and puts it in Cargo's `bin` folder, which is
-normally already on your `PATH`.
-
-:::note
-Prebuilt binaries for Windows, macOS, and Linux are coming. Until then, use
-Cargo.
-:::
+This builds the latest `jafa` (including unreleased changes) and puts it in
+Cargo's `bin` folder, which is normally already on your `PATH`.
 
 ## Install from source
 

@@ -8,8 +8,8 @@ Build a project and deploy it to Roblox using
 [Mantle](https://mantledeploy.vercel.app/).
 
 ```sh
-jafa deploy <project-name> [target-directory] [-e|--environment <env>] [-g|--groupid <id>] [-p|--payments <mode>] [-n|--name <place-name>]
-jafa deploy -a|--all [target-directory] [-e|--environment <env>] [-g|--groupid <id>] [-p|--payments <mode>] [-n|--name <place-name>]
+jafa deploy <project-name> [target-directory] [-e|--environment <env>] [-g|--groupid <id>] [-p|--payments <mode>] [-n|--name <place-name>] [-l|--level <level>]
+jafa deploy -a|--all [target-directory] [-e|--environment <env>] [-g|--groupid <id>] [-p|--payments <mode>] [-n|--name <place-name>] [-l|--level <level>]
 ```
 
 - `project-name` — required unless `-a`/`--all` is passed. Must already
@@ -28,6 +28,10 @@ jafa deploy -a|--all [target-directory] [-e|--environment <env>] [-g|--groupid <
   `personal`, or `group`).
 - `-n, --name` — sets the deployed place's
   `target.experience.places.start.configuration.name`.
+- `-l, --level` — build with [`jafa obscure`](./obscure.mdx) at this level
+  (`minify`, `rename`, or `full`) instead of a plain `jafa build`. Omit it
+  for a normal, readable build — useful for keeping `dev` unobfuscated while
+  hardening `prod`.
 
 To deploy several projects as places in one experience instead, see
 [`jafa deploy-universe`](./deploy-universe.mdx).
@@ -38,7 +42,8 @@ Mantle itself must already be authenticated with Roblox — see Mantle's
 
 ## What it does
 
-1. Runs [`build`](./build.mdx) for `project-name`, producing
+1. Runs [`build`](./build.mdx) for `project-name` (or
+   [`obscure`](./obscure.mdx) at `--level`, if passed), producing
    `artifacts/<project-name>/build.rbxl`.
 2. Creates (or updates) `artifacts/<project-name>/<environment>/mantle.yml`:
    - Points `target.experience.places.start.file` at the build output.
@@ -71,6 +76,6 @@ failures are reported together at the end.
 
 ```sh
 jafa deploy my-experience -e dev -g 35171099 -p group -n "my-experience_dev"
-jafa deploy my-experience -e prod -g 35171099 -p group
+jafa deploy my-experience -e prod -g 35171099 -p group --level full
 jafa deploy --all -e dev -g 35171099 -p group
 ```

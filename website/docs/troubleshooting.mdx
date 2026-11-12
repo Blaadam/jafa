@@ -10,9 +10,9 @@ sidebar_position: 6
 
 Every command rejects flags it doesn't recognize. Check the command's
 [CLI Reference](./cli/init.mdx) page for the exact flags it accepts —
-`-a`/`--all` is only supported by `build`, `open`, `deploy`, `sourcemap`, and
-`pull`, for example, not `serve` or `dev`. Run `jafa <command> --help` to see
-what a command takes.
+`-a`/`--all` is only supported by `build`, `obscure`, `open`, `deploy`,
+`sourcemap`, and `pull`, for example, not `serve` or `dev`. Run
+`jafa <command> --help` to see what a command takes.
 
 ### `"<name>" doesn't exist in ".../projects"`
 
@@ -32,19 +32,26 @@ The project hasn't been built yet. Run `jafa build <name>` (or `jafa dev
 into `mantle.yml`'s `owner.group`. Omit it entirely to deploy under your
 personal account instead of a group.
 
-### A tool "was not found" (`rojo`, `rokit`, `mantle`, `lune`, `wally`)
+### A tool "was not found" (`rojo`, `rokit`, `mantle`, `lune`, `wally`, `darklua`)
 
 Jafa runs these tools but couldn't find one. Run `rokit install` in the
 workspace root, and make sure Rokit's `bin` folder is on your `PATH`. Rokit's
 tools only work inside a folder that has a `rokit.toml`, so run Jafa from
 inside the workspace (or pass its `target-directory`).
 
+If it's specifically `darklua` and your workspace's `rokit.toml` predates
+[`jafa obscure`](./cli/obscure.mdx), it was never added to your tool list —
+run `rokit add seaofvoices/darklua@0.19.0` (or a newer version) and
+`rokit install`. Below `0.19.0`, `obscure` will also fail to parse Luau's
+`const` keyword, so don't pin lower than that.
+
 ### A command fails with the underlying tool's own error text
 
-`jafa build`, `serve`, `sourcemap`, `deploy`, and `pull` run `rojo`,
-`mantle`, or `lune` and judge them by their **exit code**. Warnings those
-tools print are shown but don't fail the command. When one does fail, Jafa
-prints the tool's error output; fix that and re-run.
+`jafa build`, `obscure`, `serve`, `sourcemap`, `deploy`, and `pull` run
+`rojo`, `darklua`, `mantle`, or `lune` and judge them by their **exit
+code**. Warnings those tools print are shown but don't fail the command.
+When one does fail, Jafa prints the tool's error output; fix that and
+re-run.
 
 ### `"asset-updater.luau" doesn't exist in "..."` (from `jafa pull`)
 
@@ -106,6 +113,13 @@ exactly which fields it touches. Anything else (badges, social links, avatar
 configuration, remote state) is left alone. Be aware that Jafa re-saves the
 file when it updates it, which drops comments. A [universe](./concepts/universes.mdx)
 config is never rewritten, so use that if you want comments to survive.
+
+**Does `jafa deploy` use my `jafa obscure` build?**
+Only if you pass `--level` to `deploy` (or `deploy-universe`) itself —
+otherwise it runs a plain `jafa build`, which overwrites
+`artifacts/<name>/build.rbxl` with an unobfuscated copy even if you ran
+`jafa obscure` beforehand. See [`jafa deploy`](./cli/deploy.mdx) and
+[`jafa obscure`](./cli/obscure.mdx).
 
 **Should I use `deploy` or `deploy-universe`?**
 Use `deploy` to put one project somewhere you can test it alone. Use
