@@ -6,6 +6,8 @@ use std::path::{Component, Path, PathBuf};
 
 use super::build::build_project;
 use super::new::COMMON;
+use super::obscure::obscure_project;
+use crate::cli::ObscureLevel;
 use crate::code_workspace::display_name;
 use crate::{exec, log, mantle, project};
 
@@ -39,7 +41,7 @@ pub fn new(name: &str, projects: &[String], environment: &str, target: &str) -> 
     Ok(())
 }
 
-pub fn deploy(name: &str, environment: &str, target: &str) -> Result<()> {
+pub fn deploy(name: &str, environment: &str, target: &str, level: Option<ObscureLevel>) -> Result<()> {
     project::validate_name(name)?;
     let root = project::workspace_root(target)?;
     let file = find_config(&root, name, environment)?;
@@ -69,8 +71,16 @@ pub fn deploy(name: &str, environment: &str, target: &str) -> Result<()> {
             && project::project_dir(&root, &project).is_ok()
             && built.insert(project.clone())
         {
-            log::info(format!("Building \"{project}\" for place \"{key}\"..."));
-            build_project(&root, &project)?;
+            match level {
+                Some(level) => {
+                    log::info(format!("Building \"{project}\" (obscured) for place \"{key}\"..."));
+                    obscure_project(&root, &project, level)?;
+                }
+                None => {
+                    log::info(format!("Building \"{project}\" for place \"{key}\"..."));
+                    build_project(&root, &project)?;
+                }
+            }
         }
 
         if !path.is_file() {

@@ -4,7 +4,8 @@ use std::fs;
 use std::path::Path;
 
 use super::build::build_project;
-use crate::cli::DeployArgs;
+use super::obscure::obscure_project;
+use crate::cli::{DeployArgs, ObscureLevel};
 use crate::mantle::{self, Settings};
 use crate::{exec, log, project};
 
@@ -26,14 +27,29 @@ pub fn run(args: &DeployArgs) -> Result<()> {
         place_name: args.place_name.as_deref(),
     };
 
-    project::run_each(&names, "deploy", |name| deploy_project(&root, name, &settings))
+    project::run_each(&names, "deploy", |name| {
+        deploy_project(&root, name, &settings, args.level)
+    })
 }
 
-pub fn deploy_project(root: &Path, name: &str, settings: &Settings) -> Result<()> {
+pub fn deploy_project(
+    root: &Path,
+    name: &str,
+    settings: &Settings,
+    level: Option<ObscureLevel>,
+) -> Result<()> {
     project::project_dir(root, name)?;
 
-    log::info(format!("Building project \"{name}\" before deploying..."));
-    build_project(root, name)?;
+    match level {
+        Some(level) => {
+            log::info(format!("Building project \"{name}\" (obscured) before deploying..."));
+            obscure_project(root, name, level)?;
+        }
+        None => {
+            log::info(format!("Building project \"{name}\" before deploying..."));
+            build_project(root, name)?;
+        }
+    }
 
     let artifacts = project::artifacts_dir(root, name);
     let build_file = artifacts.join("build.rbxl");

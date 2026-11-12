@@ -56,6 +56,7 @@ jafa <command> [options]
 | `init [target-directory] [-y] [-n name] [--common]` | Create a new Jafa workspace in the given directory (defaults to the current directory). |
 | `new <project-name> [target-directory]` | Create a new project inside an existing Jafa workspace. |
 | `build <project-name>\|-a\|--all [target-directory]` | Build a project (or every project) with Rojo, writing to `artifacts/`. |
+| `obscure <project-name>\|-a\|--all [target-directory] [-l level]` | Build a project (or every project) with its scripts obfuscated via darklua first, so a leaked `build.rbxl` is harder to read. |
 | `open <project-name>\|-a\|--all [target-directory]` | Open a project's built `.rbxl` file (or every built project) in Roblox Studio. |
 | `serve <project-name> [target-directory]` | Serve a project for live-sync with Roblox Studio via `rojo serve`. |
 | `dev <project-name> [target-directory]` | Build, open, and serve a project, in order. |
@@ -65,7 +66,7 @@ jafa <command> [options]
 | `sourcemap <project-name>\|-a\|--all [target-directory]` | Generate a `sourcemap.json` for a project (or every project). |
 | `pull <project-name>\|-a\|--all [target-directory]` | Pull published Roblox assets (terrain, maps, lighting, etc.) into a project (or every project), as described by its `.jafa` file. |
 
-`build`, `open`, `deploy`, `sourcemap`, and `pull` accept `-a`/`--all` to run against every project under `projects/` instead of a single named one. Run `jafa --help` or `jafa <command> --help` for every option.
+`build`, `obscure`, `open`, `deploy`, `sourcemap`, and `pull` accept `-a`/`--all` to run against every project under `projects/` instead of a single named one. Run `jafa --help` or `jafa <command> --help` for every option.
 
 ### Examples
 
@@ -74,6 +75,7 @@ jafa init my-game --common
 jafa new my-experience
 jafa dev my-experience
 jafa build --all
+jafa obscure my-experience --level full
 jafa deploy my-experience -e prod -g 35171099 -p group
 jafa new-universe my-game lobby tennis bowling
 jafa deploy-universe my-game -e stg

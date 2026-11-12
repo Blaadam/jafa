@@ -3,6 +3,7 @@ pub mod deploy;
 pub mod dev;
 pub mod init;
 pub mod new;
+pub mod obscure;
 pub mod pull;
 pub mod serve;
 pub mod sourcemap;

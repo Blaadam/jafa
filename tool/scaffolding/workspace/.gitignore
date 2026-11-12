@@ -6,3 +6,8 @@
 secrets.luau
 sourcemap.json
 wally/Packages/*
+
+# scratch copies `jafa obscure` makes while darklua/rojo run; cleaned up automatically,
+# this just covers the case where a run is interrupted before that happens
+.obscure-src/
+.obscure-out/

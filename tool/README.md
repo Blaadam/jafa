@@ -37,6 +37,7 @@ To skip the questions: `jafa init my-game --yes --name lobby`.
 | `init [dir]` | Create a workspace. Flags: `-y/--yes`, `-n/--name <project>`, `--common`. |
 | `new <name> [dir]` | Add a project to the workspace. |
 | `build <name>` | Build with Rojo into `artifacts/<name>/build.rbxl`. |
+| `obscure <name>` | Build with scripts obfuscated via darklua first. Flags: `-l/--level minify\|rename\|full`. |
 | `open <name>` | Open a built project in Roblox Studio. |
 | `serve <name>` | Serve a project for live sync (`rojo serve`). |
 | `dev <name>` | Build, open, then serve. |
@@ -46,7 +47,7 @@ To skip the questions: `jafa init my-game --yes --name lobby`.
 | `new-universe <name> [projects...]` | Create a starter Mantle config for an experience made of several places. |
 | `deploy-universe <name>` | Build the projects a universe uses, then deploy it with Mantle. |
 
-`build`, `open`, `deploy`, `sourcemap` and `pull` take `-a/--all` to run on every
+`build`, `obscure`, `open`, `deploy`, `sourcemap` and `pull` take `-a/--all` to run on every
 project in `projects/`. Run `jafa <command> --help` for the details.
 
 ## Common project

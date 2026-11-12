@@ -30,6 +30,26 @@ pub struct SingleArgs {
     pub target: String,
 }
 
+#[derive(Clone, Copy, Debug, PartialEq, Eq, clap::ValueEnum)]
+pub enum ObscureLevel {
+    /// Strip comments and collapse whitespace, keep names as-is
+    Minify,
+    /// Minify and rename local variables and function parameters
+    Rename,
+    /// Rename, plus strip type annotations and fold/drop dead code
+    Full,
+}
+
+#[derive(Args)]
+pub struct ObscureArgs {
+    #[command(flatten)]
+    pub project: ProjectArgs,
+
+    /// How aggressively to obfuscate the build
+    #[arg(short, long, value_enum, default_value_t = ObscureLevel::Rename)]
+    pub level: ObscureLevel,
+}
+
 #[derive(Args)]
 pub struct DeployArgs {
     #[command(flatten)]
@@ -50,6 +70,10 @@ pub struct DeployArgs {
     /// Name of the deployed place
     #[arg(short = 'n', long = "name")]
     pub place_name: Option<String>,
+
+    /// Obfuscate scripts before deploying, at this level, instead of a plain build
+    #[arg(short, long, value_enum)]
+    pub level: Option<ObscureLevel>,
 }
 
 #[derive(Subcommand)]
@@ -83,6 +107,8 @@ pub enum Command {
     },
     /// Build a project with Rojo
     Build(ProjectArgs),
+    /// Build a project with its scripts obfuscated, to make a leaked copy harder to read
+    Obscure(ObscureArgs),
     /// Generate a project's sourcemap.json
     Sourcemap(ProjectArgs),
     /// Serve a project for live sync with Roblox Studio
@@ -123,5 +149,9 @@ pub enum Command {
         /// Workspace directory
         #[arg(short, long, default_value = ".")]
         target: String,
+
+        /// Obfuscate scripts before deploying, at this level, instead of a plain build
+        #[arg(short, long, value_enum)]
+        level: Option<ObscureLevel>,
     },
 }

@@ -1,0 +1,72 @@
+---
+sidebar_position: 12
+---
+
+# jafa obscure
+
+Build a project the same way as [`build`](./build.mdx), but with its Luau
+scripts obfuscated first, so a leaked `build.rbxl` is harder to read than
+your actual source.
+
+```sh
+jafa obscure <project-name> [target-directory] [-l|--level <level>]
+jafa obscure -a|--all [target-directory] [-l|--level <level>]
+```
+
+- `project-name` — required unless `-a`/`--all` is passed. Must already
+  exist under `projects/`.
+- `-a, --all` — obscure every project under `projects/` instead of a single
+  named one.
+- `target-directory` — workspace root. Defaults to the current directory
+  (`.`).
+- `-l, --level` — how aggressively to obfuscate, one of:
+  - `minify` — strip comments and collapse whitespace, keep names as-is.
+  - `rename` (default) — minify, and rename local variables and function
+    parameters to short, meaningless names.
+  - `full` — rename, and also strip Luau type annotations and fold/drop dead
+    code (e.g. branches darklua can prove are unreachable).
+
+## What it does
+
+Requires [darklua](https://darklua.com/) — install it with `rokit add
+seaofvoices/darklua` if your workspace predates it being added to
+`rokit.toml`.
+
+The project (plus the shared `common` project and `wally/Packages`, if your
+workspace uses them) is copied to a scratch directory, darklua processes the
+copy's scripts according to `--level`, and `rojo build` runs against the
+*obfuscated* copy — never your real source — writing the result to
+`artifacts/<project-name>/build.rbxl`, same as `build`. The scratch
+directories are deleted once the build finishes.
+
+With `-a`/`--all`, this runs for every project directory found under
+`projects/`. If one project fails, the rest still run — failures are
+reported together at the end.
+
+darklua only writes a file it has a loader for, and only creates a folder
+when it writes something into it — so on its own, it would silently drop an
+empty folder (e.g. `client/controllers` before you've added a controller)
+and any asset it doesn't recognize, like a binary `.rbxm`/`.rbxmx` model.
+`jafa` carries both over from the pre-darklua copy afterwards, without
+touching anything darklua did write, so a `$path` pointing at either keeps
+resolving and `rojo build` doesn't fail looking for them.
+
+Roblox globals (`game`, `script`, `require`, …) are never renamed. Still,
+`full` can change runtime behavior if it folds away something your game
+depends on — build normally for anything you're actively debugging, and spot
+check a `full` build in Studio before shipping it.
+
+:::note
+Obfuscation raises the cost of someone reading a leaked copy of your game —
+it doesn't make it impossible. Keep anything that actually matters (currency
+grants, drop validation, admin checks, etc.) authoritative on the server, so
+a client-side script being readable (or stolen outright) doesn't matter.
+:::
+
+## Examples
+
+```sh
+jafa obscure my-experience
+jafa obscure my-experience --level full
+jafa obscure --all
+```

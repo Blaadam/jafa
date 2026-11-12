@@ -16,6 +16,7 @@ use cli::{Cli, Command};
 fn run(cli: Cli) -> Result<()> {
     match cli.command {
         Command::Build(args) => commands::build::run(&args),
+        Command::Obscure(args) => commands::obscure::run(&args),
         Command::Init { target, yes, common, name } => {
             commands::init::run(&target, yes, common, name)
         }
@@ -29,8 +30,8 @@ fn run(cli: Cli) -> Result<()> {
         Command::NewUniverse { name, projects, environment, target } => {
             commands::universe::new(&name, &projects, &environment, &target)
         }
-        Command::DeployUniverse { name, environment, target } => {
-            commands::universe::deploy(&name, &environment, &target)
+        Command::DeployUniverse { name, environment, target, level } => {
+            commands::universe::deploy(&name, &environment, &target, level)
         }
     }
 }

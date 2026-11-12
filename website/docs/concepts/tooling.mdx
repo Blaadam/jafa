@@ -49,6 +49,14 @@ installed via Rokit for running Luau scripts outside of Roblox Studio (for
 example, build or codegen scripts). Jafa installs it but doesn't invoke it
 directly — it's there for you to script against.
 
+## darklua
+
+[darklua](https://darklua.com/) transforms Luau source, and is what powers
+[`jafa obscure`](../cli/obscure.mdx): it strips comments/whitespace and
+renames locals (and, at the `full` level, drops dead code and type
+annotations) in a scratch copy of a project before `rojo build` runs against
+it, so a leaked `build.rbxl` is harder to read than your actual source.
+
 ## Mantle
 
 [Mantle](https://mantledeploy.vercel.app/) manages deploying and configuring
