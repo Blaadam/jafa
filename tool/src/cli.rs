@@ -30,6 +30,24 @@ pub struct SingleArgs {
     pub target: String,
 }
 
+#[derive(Args)]
+pub struct LinkArgs {
+    /// File or folder to link, as <project>/<path inside it>
+    pub source: String,
+
+    /// Projects to link it into
+    #[arg(required = true)]
+    pub projects: Vec<String>,
+
+    /// Name to link it under, so a whole mapped folder like client/services lands in client/services/<name> [default: the source project]
+    #[arg(short, long)]
+    pub name: Option<String>,
+
+    /// Workspace directory
+    #[arg(short, long, default_value = ".")]
+    pub target: String,
+}
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq, clap::ValueEnum)]
 pub enum ObscureLevel {
     /// Strip comments and collapse whitespace, keep names as-is
@@ -105,6 +123,10 @@ pub enum Command {
         #[arg(default_value = ".")]
         target: String,
     },
+    /// Link a file or folder from one project into others, e.g. `jafa link tennis/client/services/Music.luau boxing bowling`
+    Link(LinkArgs),
+    /// Remove a file or folder linked with `link` from projects
+    Unlink(LinkArgs),
     /// Build a project with Rojo
     Build(ProjectArgs),
     /// Build a project with its scripts obfuscated, to make a leaked copy harder to read

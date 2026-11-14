@@ -61,6 +61,7 @@ jafa <command> [options]
 | `serve <project-name> [target-directory]` | Serve a project for live-sync with Roblox Studio via `rojo serve`. |
 | `dev <project-name> [target-directory]` | Build, open, and serve a project, in order. |
 | `deploy <project-name>\|-a\|--all [target-directory] [-e env] [-g groupid] [-p payments] [-n name]` | Build a project and deploy it to Roblox using Mantle, as its own experience. |
+| `link <project/path> <projects...> [-n name]` | Link a file or folder from one project into others, like `common` but per file. `unlink` removes it. |
 | `new-universe <universe-name> [projects...] [-e env]` | Create a starter Mantle config for one experience made of several projects. |
 | `deploy-universe <universe-name> [-e env]` | Build the projects a universe uses, then deploy it with Mantle. |
 | `sourcemap <project-name>\|-a\|--all [target-directory]` | Generate a `sourcemap.json` for a project (or every project). |
@@ -77,6 +78,8 @@ jafa dev my-experience
 jafa build --all
 jafa obscure my-experience --level full
 jafa deploy my-experience -e prod -g 35171099 -p group
+jafa link tennis/client/services/MusicClientService.luau boxing bowling
+jafa link tennis/client/services boxing bowling -n tennis
 jafa new-universe my-game lobby tennis bowling
 jafa deploy-universe my-game -e stg
 jafa pull my-experience
@@ -105,6 +108,10 @@ and `Workspace`. The project is also added to `jafa.code-workspace`.
 
 A project named `common` holds code shared between your other projects. Create it with `jafa init --common` or `jafa new common`. Every project made after it is linked to it in its Rojo tree, so shared code shows up beside each project's own.
 
+## Linking files
+
+For code only a few projects share, `jafa link tennis/client/services/MusicClientService.luau boxing bowling` adds the file to each of those projects' Rojo trees, pointing at the original, so there's one copy. A whole mapped folder can be linked under a name with `-n`, e.g. `jafa link tennis/client/services boxing -n tennis` gives `Client.Services.tennis`. `jafa unlink` removes it again, with the same `-n`.
+
 ## Universes
 
 An experience can have several places, such as a lobby plus one for each game mode. `jafa new-universe` writes a starter Mantle config with a place for each project, and `jafa deploy-universe` builds the projects it uses and deploys them. You edit the config, and Jafa never rewrites it. Use `jafa deploy` instead to put a single project somewhere you can test it on its own.
@@ -123,6 +130,7 @@ Full docs, including per-command reference and workspace/project concepts, are a
 - [x] `dev` — build, open, and serve a project (in order)
 - [x] `deploy` — build and deploy a project to Roblox using Mantle
 - [x] `new-universe` / `deploy-universe` — deploy several projects as one experience
+- [x] `link` / `unlink` — share single files or folders between projects
 - [x] `sourcemap` — generate a sourcemap for a project
 - [x] `pull` — pull published Roblox assets into a project
 

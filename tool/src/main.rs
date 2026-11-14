@@ -20,6 +20,12 @@ fn run(cli: Cli) -> Result<()> {
         Command::Init { target, yes, common, name } => {
             commands::init::run(&target, yes, common, name)
         }
+        Command::Link(args) => {
+            commands::link::link(&project::workspace_root(&args.target)?, &args.source, &args.projects, args.name.as_deref())
+        }
+        Command::Unlink(args) => {
+            commands::link::unlink(&project::workspace_root(&args.target)?, &args.source, &args.projects, args.name.as_deref())
+        }
         Command::New { name, target } => commands::new::run(&name, &target),
         Command::Open(args) => commands::start::run(&args),
         Command::Pull(args) => commands::pull::run(&args),

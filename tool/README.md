@@ -44,6 +44,7 @@ To skip the questions: `jafa init my-game --yes --name lobby`.
 | `sourcemap <name>` | Generate `sourcemap.json` for a project. |
 | `pull <name>` | Pull published Roblox assets into a project, as listed in its `.jafa` file. |
 | `deploy <name>` | Build and deploy one project as its own experience with Mantle. Flags: `-e`, `-g`, `-p`, `-n`. |
+| `link <project/path> <projects...>` | Link a file or folder from one project into others. Flags: `-n/--name`. `unlink` removes it. |
 | `new-universe <name> [projects...]` | Create a starter Mantle config for an experience made of several places. |
 | `deploy-universe <name>` | Build the projects a universe uses, then deploy it with Mantle. |
 

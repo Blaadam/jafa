@@ -1,0 +1,81 @@
+---
+sidebar_position: 13
+---
+
+# jafa link
+
+Link a file or folder from one project into other projects, without copying it.
+It's [`common`](../concepts/workspace.mdx) on a per-file basis, for code that only
+a few projects share.
+
+```sh
+jafa link <project>/<path> <project-names...> [-n|--name <name>] [-t|--target <directory>]
+jafa unlink <project>/<path> <project-names...> [-n|--name <name>] [-t|--target <directory>]
+```
+
+- `project/path` — required. The file or folder to link, written as the project
+  it lives in followed by its path inside that project. Casing doesn't matter.
+- `project-names` — required. One or more projects to link it into.
+- `-n, --name` — the name to link it under. See below.
+- `-t, --target` — workspace root. Defaults to the current directory (`.`).
+
+## What it does
+
+Adds an entry to each target's `default.project.json` that points at the
+original, so there's only ever one copy. The entry goes in the same place in the
+target's tree as the original is in the source's, so a file from
+`client/services` lands next to the target's own client services.
+
+```json
+"Services": {
+  "$path": "./client/services",
+  "MusicClientService": {
+    "$path": "../tennis/client/services/MusicClientService.luau"
+  }
+}
+```
+
+The rest of the project file is left as it was, comments and formatting included.
+
+A target that already has an entry or file with that name is skipped with a
+warning, and the others still run. Linking something that's already linked does
+nothing.
+
+## Linking a whole folder
+
+A folder your project file maps directly, such as `client/services`, can be
+linked too. It goes into the target under a name, as a folder inside the target's
+own, so it can't clash with the services the target already has.
+
+```sh
+jafa link tennis/client/services boxing bowling -n tennis
+```
+
+This shows up in Studio as `Client.Services.tennis`. `-n` defaults to the source
+project's name, so pick one that describes the group when several projects share
+it. Anything that requires a service by path has to use the longer path.
+
+`-n` also works on a single file or folder, to change the name it's linked under.
+
+## Unlinking
+
+`jafa unlink` removes the entry again. Pass the same `-n` you linked with. It
+only removes an entry that points at that file, and never deletes any files.
+
+## Limits
+
+- A file or folder has to sit directly inside a folder your project file maps, or
+  be that folder. Anything nested deeper can be linked by linking its top-level
+  folder instead.
+- The target needs the same spot in its tree, which projects made with `jafa new`
+  all have.
+
+## Examples
+
+```sh
+jafa link tennis/client/services/MusicClientService.luau boxing bowling
+jafa link tennis/client/modules/audio boxing
+jafa link tennis/client/services boxing bowling -n tennis
+jafa unlink tennis/client/services/MusicClientService.luau boxing
+jafa unlink tennis/client/services boxing -n tennis
+```
